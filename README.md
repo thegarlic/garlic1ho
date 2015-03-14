@@ -4,6 +4,7 @@
 
 #build
 eclipe인 경우 : gradle eclipse
+
 intelliJ 인 경우 : gradle idea
 
 그리고 IDE 에서 불러온 뒤에, 이클립스같은 경우 
