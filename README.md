@@ -14,3 +14,7 @@ intelliJ 인 경우 : gradle idea
 인텔리J 도 마찬가지..
 음.. 구글링중 sourceSets 가 자동으로 소스 classpath 잡아주는 것같던데, 고대로 했는데 잘 안됬다. 
 크게 불편한 건 없으니(?) 일단 pass.;; 
+
+#정보
+트렐로 : https://trello.com/b/78R2M30d/garlic1ho
+위키 : https://github.com/thegarlic/garlic1ho/wiki
