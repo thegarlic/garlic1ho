@@ -2,10 +2,10 @@
 박소은님. 최강용 팀보드
 
 
-#build
-eclipe인 경우 : gradle eclipse
+## build
+ - eclipe인 경우 : gradle eclipse
 
-intelliJ 인 경우 : gradle idea
+ - intelliJ 인 경우 : gradle idea
 
 그리고 IDE 에서 불러온 뒤에, 이클립스같은 경우 
 프로젝트에서 src/main/java , resources 와 테스트부분 폴더도 classpath 설정을 잡아줬어야 했다. 
@@ -15,6 +15,6 @@ intelliJ 인 경우 : gradle idea
 음.. 구글링중 sourceSets 가 자동으로 소스 classpath 잡아주는 것같던데, 고대로 했는데 잘 안됬다. 
 크게 불편한 건 없으니(?) 일단 pass.;; 
 
-#정보
-트렐로 : https://trello.com/b/78R2M30d/garlic1ho
-위키 : https://github.com/thegarlic/garlic1ho/wiki
+## 정보
+ - [트렐로 : https://trello.com/b/78R2M30d/garlic1ho](https://trello.com/b/78R2M30d/garlic1ho)
+ - [위키 : https://github.com/thegarlic/garlic1ho/wiki](https://github.com/thegarlic/garlic1ho/wiki)
