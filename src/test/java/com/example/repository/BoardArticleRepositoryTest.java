@@ -14,8 +14,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.config.ApplicationContext;
 import com.example.config.PersistenceContext;
 import com.example.domain.BoardArticle;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -26,6 +28,11 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @ActiveProfiles("test")
+/* 잠깐 쓴 다른 방식.
+ * @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { ApplicationContext.class })
+@WebAppConfiguration
+*/
 public class BoardArticleRepositoryTest {
 
 	private static final String TDD = "TDD";

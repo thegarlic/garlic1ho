@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
-import org.hibernate.PropertyAccessException;
+
 
 @Entity
 public class BoardArticle extends BaseEntity<Long> {
@@ -26,7 +26,6 @@ public class BoardArticle extends BaseEntity<Long> {
 	@Column(length = 100, nullable = false)
 	private String title;
 
-	
 	// 여기서부터 게시판 내용글 레이지로딩. 손권남님 위키 onetoone 부분 참고
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(
@@ -59,12 +58,16 @@ public class BoardArticle extends BaseEntity<Long> {
 		return getContentHolder().get(0);
 	}
 	//
+	
+	private String boardName;
+	
 	@Column(nullable=true)
 	private Integer num_read=0;
 	@Column(nullable=true)
 	private Integer num_like=0;
 	@Column(nullable=true)
 	private Integer num_dislike=0;
+	
 	
 	
 	public BoardArticle(String title) {
@@ -124,6 +127,16 @@ public class BoardArticle extends BaseEntity<Long> {
 	public void setNum_dislike(Integer num_dislike) {
 		this.num_dislike = num_dislike;
 	}
+
+	public String getBoardName() {
+		return boardName;
+	}
+
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
+	}
+	
+	
 	
 	
 

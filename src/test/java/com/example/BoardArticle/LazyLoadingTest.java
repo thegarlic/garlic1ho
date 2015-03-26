@@ -3,7 +3,7 @@ package com.example.BoardArticle;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Scanner;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

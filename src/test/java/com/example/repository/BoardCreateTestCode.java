@@ -36,13 +36,15 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @ActiveProfiles("test")
+@Transactional
 public class BoardCreateTestCode {
+
 	@Autowired
 	BoardArticleRepository repository;
 	@Autowired
 	EntityManagerFactory entityManagerFactory;
 	EntityManager em;
-	
+	private static final String MESSAGE = "message";	
 	private static final String HELLOWORLD = "helloworld";
 	
 	
@@ -54,13 +56,12 @@ public class BoardCreateTestCode {
 		repository.deleteAll();
 		System.out.println("삭제 완료~");
 		assertEquals(repository.count(), 0);
-		BoardArticle article = new BoardArticle(HELLOWORLD, "message");
+		BoardArticle article = new BoardArticle(HELLOWORLD, MESSAGE);
 		repository.save(article);
 		assertEquals(repository.count(), 1);
 	}
 
-	//@Test
-	@Transactional
+	@Test
 	public void t01_조회수올리기() throws Exception {
 		System.out.println("조회수올리기 테스트");
         BoardArticle getArticle = getJustoneArticle();
@@ -71,8 +72,7 @@ public class BoardCreateTestCode {
 	
 	
 	@Test
-	@Transactional
-	public void t02_글목록받아와보기() throws Exception {
+	public void t02_레이지로딩하다가옮김의잔해() throws Exception {
 		repository.flush();
 		BoardArticle  getArticle = getJustoneArticle();
 		em=entityManagerFactory.createEntityManager();
@@ -82,6 +82,33 @@ public class BoardCreateTestCode {
 		//assertFalse(unitUtil.isLoaded(getArticle, "contentHolder"));
 		//이 부분은 @Before나 같은 메서드내에서 repository.save를 하면 에러가 발생한다. 
 		System.out.println("받은 메시지 "+getArticle.getContent());
+	}
+	
+	@Test
+	public void 글목록삽입() throws Exception {
+		repository.deleteAll();
+		List<BoardArticle> listBoardArticles = new ArrayList<BoardArticle>();
+		for (int i = 0; i < 10; i++) {
+			listBoardArticles.add(new BoardArticle("제목"+i, "내용"+i));
+		}
+		repository.save(listBoardArticles);
+		List<BoardArticle> getList = repository.findAll();
+		
+		for (int i = 0; i < 10; i++) {
+			assertEquals("제목"+i, getList.get(i).getTitle());
+			assertEquals("내용"+i, getList.get(i).getContent());
+		}
+	}
+	
+	@Test
+	public void 글하나읽어보기() throws Exception {
+		BoardArticle getArticle = getJustoneArticle();
+		assertNotNull(getArticle);
+		assertNotNull(getArticle.getModificationTime());
+		assertNotNull(getArticle.getCreationTime());
+		assertEquals(getArticle.getNum_read().intValue(), 0);
+		assertEquals(getArticle.getTitle(), HELLOWORLD);
+		assertEquals(getArticle.getContent(), MESSAGE);
 	}
 	
 	
