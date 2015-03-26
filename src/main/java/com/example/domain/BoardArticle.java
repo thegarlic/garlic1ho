@@ -60,11 +60,11 @@ public class BoardArticle extends BaseEntity<Long> {
 	}
 	//
 	@Column(nullable=true)
-	private Integer num_read;
+	private Integer num_read=0;
 	@Column(nullable=true)
-	private Integer num_like;
+	private Integer num_like=0;
 	@Column(nullable=true)
-	private Integer num_dislike;
+	private Integer num_dislike=0;
 	
 	
 	public BoardArticle(String title) {
@@ -106,7 +106,7 @@ public class BoardArticle extends BaseEntity<Long> {
 	}
 
 	public void setNum_read(Integer num_read) {
-		this.num_read = num_read;
+			this.num_read = num_read;
 	}
 
 	public Integer getNum_like() {
