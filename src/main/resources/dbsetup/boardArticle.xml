@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset [
+    <!ELEMENT dataset (board_article*)>
+        <!ATTLIST board_article id CDATA #REQUIRED>
+        <!ATTLIST board_article title CDATA #REQUIRED>
+        <!ATTLIST board_article version CDATA #IMPLIED>
+        <!ATTLIST board_article CREATION_TIME CDATA #IMPLIED>
+        <!ATTLIST board_article modification_time CDATA #IMPLIED>
+]>
+
 <dataset>
-    <board_article id="1" title="hello world" version="0" CREATION_TIME="2015-03-26 01:00:00.000000000" modification_time="2015-03-26 01:00:00.000000000" num_read='0'/>
-    <board_article id="2" title="Bar" version="0" CREATION_TIME="2015-03-26 01:00:00.000000000" modification_time="2015-03-26 01:00:00.000000000" num_read='0' />
-    <ARTICLE_CONTENT_HOLDER article_id="1" content="hello"/>
-    <ARTICLE_CONTENT_HOLDER article_id="2" content="me~"/>
+    <board_article id="1" title="hello world" version="0" CREATION_TIME="2015-03-26 01:00:00.000000000" modification_time="2015-03-26 01:00:00.000000000" />
+    <board_article id="2" title="Bar" version="0" CREATION_TIME="2015-03-26 01:00:00.000000000" modification_time="2015-03-26 01:00:00.000000000"  />
 </dataset>

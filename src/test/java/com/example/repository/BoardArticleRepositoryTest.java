@@ -68,7 +68,7 @@ public class BoardArticleRepositoryTest {
         BoardArticle getArticle = getJustoneArticle();
         repository.updateNumRead(getArticle.getId());
         getArticle = repository.findOne(getArticle.getId());
-        assertEquals(1, getArticle.getNum_read());
+        assertEquals(1, getArticle.getNum_read().intValue());
 	}
 	
 

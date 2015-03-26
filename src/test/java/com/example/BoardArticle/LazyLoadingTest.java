@@ -3,6 +3,8 @@ package com.example.BoardArticle;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Scanner;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnitUtil;
@@ -33,7 +35,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @ActiveProfiles("test")
-@DatabaseSetup("classpath:dbsetup/boardArticle.xml")
+@DatabaseSetup(value={"classpath:dbsetup/boardArticle.xml", "classpath:dbsetup/article_content_holder.xml"})
 public class LazyLoadingTest {
 	@Autowired
 	BoardArticleRepository repository;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset [
+    <!ELEMENT dataset (ARTICLE_CONTENT_HOLDER*)>
+        <!ATTLIST ARTICLE_CONTENT_HOLDER article_id CDATA #REQUIRED>
+        <!ATTLIST ARTICLE_CONTENT_HOLDER content CDATA #REQUIRED>
+]>
+<dataset>
+  	<ARTICLE_CONTENT_HOLDER article_id="1" content="hello"/>
+    <ARTICLE_CONTENT_HOLDER article_id="2" content="me~"/>
+</dataset>

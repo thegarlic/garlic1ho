@@ -1,7 +1,6 @@
 package com.example.domain;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -14,13 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
+import org.hibernate.PropertyAccessException;
 
 @Entity
 public class BoardArticle extends BaseEntity<Long> {
@@ -32,6 +26,8 @@ public class BoardArticle extends BaseEntity<Long> {
 	@Column(length = 100, nullable = false)
 	private String title;
 
+	
+	// 여기서부터 게시판 내용글 레이지로딩. 손권남님 위키 onetoone 부분 참고
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(
 			name = "article_content_holder", 
@@ -53,26 +49,24 @@ public class BoardArticle extends BaseEntity<Long> {
 		if (getContentHolder() == null) {
 			setContentHolder(new ArrayList<String>());
 		}
-	 
 		getContentHolder().clear();
 		getContentHolder().add(content);
 	}
-	 
 	public String getContent() {
 		if (getContentHolder() == null || getContentHolder().size() == 0) {
 			return null;
 		}
 		return getContentHolder().get(0);
 	}
-
+	//
 	@Column(nullable=true)
-	private int num_read;
+	private Integer num_read;
+	@Column(nullable=true)
+	private Integer num_like;
+	@Column(nullable=true)
+	private Integer num_dislike;
 	
 	
-
-	public BoardArticle() {
-	}
-
 	public BoardArticle(String title) {
 		super();
 		this.title = title;
@@ -84,9 +78,11 @@ public class BoardArticle extends BaseEntity<Long> {
 		setContent(content);
 	}
 	
-	
-	
 
+	public BoardArticle() {
+	}
+
+	
 	
 
 	public Long getId() {
@@ -105,14 +101,32 @@ public class BoardArticle extends BaseEntity<Long> {
 		this.title = title;
 	}
 
-
-	public int getNum_read() {
+	public Integer getNum_read() {
 		return num_read;
 	}
 
-	public void setNum_read(int num_read) {
+	public void setNum_read(Integer num_read) {
 		this.num_read = num_read;
 	}
+
+	public Integer getNum_like() {
+		return num_like;
+	}
+
+	public void setNum_like(Integer num_like) {
+		this.num_like = num_like;
+	}
+
+	public Integer getNum_dislike() {
+		return num_dislike;
+	}
+
+	public void setNum_dislike(Integer num_dislike) {
+		this.num_dislike = num_dislike;
+	}
+	
+	
+
 
 	
 
