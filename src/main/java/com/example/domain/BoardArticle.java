@@ -88,6 +88,13 @@ public class BoardArticle extends BaseEntity<Long> {
 	
 	
 
+	public BoardArticle(String title, String content, String boardName) {
+		super();
+		this.title = title;
+		setContent(content);
+		this.boardName = boardName;
+	}
+
 	public Long getId() {
 		return id;
 	}

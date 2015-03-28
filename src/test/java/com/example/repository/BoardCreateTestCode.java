@@ -15,6 +15,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -39,6 +44,9 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 @Transactional
 public class BoardCreateTestCode {
 
+	private static final String FREE = "free";
+	private static final String subject = "subject";
+	private static final String content = "content";
 	@Autowired
 	BoardArticleRepository repository;
 	@Autowired
@@ -86,18 +94,43 @@ public class BoardCreateTestCode {
 	
 	@Test
 	public void 글목록삽입() throws Exception {
-		repository.deleteAll();
-		List<BoardArticle> listBoardArticles = new ArrayList<BoardArticle>();
-		for (int i = 0; i < 10; i++) {
-			listBoardArticles.add(new BoardArticle("제목"+i, "내용"+i));
-		}
-		repository.save(listBoardArticles);
+		saveBoardArticles(10);
 		List<BoardArticle> getList = repository.findAll();
 		
 		for (int i = 0; i < 10; i++) {
-			assertEquals("제목"+i, getList.get(i).getTitle());
-			assertEquals("내용"+i, getList.get(i).getContent());
+			assertEquals(subject+i, getList.get(i).getTitle());
+			assertEquals(content+i, getList.get(i).getContent());
 		}
+	}
+
+	public void saveBoardArticles(int num) {
+		repository.deleteAll();
+		List<BoardArticle> listBoardArticles = new ArrayList<BoardArticle>();
+		for (int i = 0; i < num; i++) {
+			listBoardArticles.add(new BoardArticle(subject+i, content+i, FREE));
+		}
+		repository.save(listBoardArticles);
+	}
+	
+	@Test
+	public void 페이징된내용받아오기() throws Exception {
+		//한 100개쯤 넣어보고 1페이지에서 10개를 받아오도록 하겠다. 
+		int page = 0;
+		String boardName ="free";
+		saveBoardArticles(100);
+		Page<BoardArticle> pageBoard = getBoardArticle(page, boardName);
+		List<BoardArticle> getArticles = pageBoard.getContent();
+		for (int i = 99, j=0; i >= 90; i--, j++) {
+			assertEquals(content+i, getArticles.get(j).getContent());
+		}
+	}
+
+	public Page<BoardArticle> getBoardArticle(int page, String boardName) {
+		Sort sort = new Sort(Direction.DESC, "id");
+		int size = 10;
+		Pageable pageable = new PageRequest(page, size, sort);
+		Page<BoardArticle> pageBoard =repository.findByBoardName(pageable, boardName);
+		return pageBoard;
 	}
 	
 	@Test
