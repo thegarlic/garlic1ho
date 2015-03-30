@@ -10,7 +10,8 @@ public class HelloController {
 	@RequestMapping("/")
 	@ResponseBody
 	public String hello(){
-		return "Hello world ! first board";
+		return "Hello world ! first board"
+				+ "<a href='/thegarlic1ho/freeboard/init'>링크</a>";
 	}
 	
 }

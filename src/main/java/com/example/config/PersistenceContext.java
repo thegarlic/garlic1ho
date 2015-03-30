@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -65,6 +67,21 @@ public class PersistenceContext {
 		entityManagerFactoryBean.setDataSource(dataSource());
 		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		entityManagerFactoryBean.setPackagesToScan(PROPERTY_PACKAGES_TO_SCAN);
+		entityManagerFactoryBean.setJpaProperties(hibernateProperties());
+		return entityManagerFactoryBean;
+	}
+	
+	@Bean
+	public LocalSessionFactoryBean sessionFactory(){
+		LocalSessionFactoryBean annotationSessionFactoryBean = new LocalSessionFactoryBean();
+		annotationSessionFactoryBean.setDataSource(dataSource());
+		annotationSessionFactoryBean.setPackagesToScan(PROPERTY_PACKAGES_TO_SCAN);
+		annotationSessionFactoryBean.setHibernateProperties(hibernateProperties());
+		return annotationSessionFactoryBean;
+	}
+	
+	@Bean
+	Properties hibernateProperties(){
 		Properties jpaProperties = new Properties();
 		jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
 		jpaProperties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
@@ -73,8 +90,7 @@ public class PersistenceContext {
 		jpaProperties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY,
 				env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY));
 		jpaProperties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
-		entityManagerFactoryBean.setJpaProperties(jpaProperties);
-		return entityManagerFactoryBean;
+		return jpaProperties;
 	}
 
 	@Configuration

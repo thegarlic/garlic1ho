@@ -34,8 +34,9 @@ public class BoardArticleController {
 		return BOARD_LIST;
 	}
 	
-	@RequestMapping
-	public String read(@PathVariable("boardName") String boardName , Long id, Model model){
+	@RequestMapping("/{id}")
+	public String read(@PathVariable("boardName") String boardName , 
+			@PathVariable("id") Long id, Model model){
 		model.addAttribute("article", serviceBoard.getBoardArticle(id));
 		return BOARD_READ;
 	}

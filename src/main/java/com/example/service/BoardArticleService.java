@@ -9,11 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.BoardArticle;
 import com.example.repository.BoardArticleRepository;
 
 @Service
+@Transactional
 public class BoardArticleService {
 	
 
@@ -25,6 +27,7 @@ public class BoardArticleService {
 	public Page<BoardArticle> getBoardList(String boardName){
 		return getBoardList(1, boardName);
 	}
+	
 	public Page<BoardArticle> getBoardList(int page, String boardName) {
 		//TODO 페이지 잘못들어왔을 때 검사해야함		
 		Sort sort = new Sort(Direction.DESC, ID);
@@ -33,6 +36,7 @@ public class BoardArticleService {
 		LOGGER.debug(pageBoard.toString());
 		return pageBoard;
 	}
+	
 	
 	public BoardArticle getBoardArticle(Long id){
 		return repository.findOne(id);

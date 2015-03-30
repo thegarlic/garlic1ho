@@ -32,7 +32,7 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 				<c:forEach var="article" items="${articles.content }">
 				<tr>
 					<td>${article.id }</td>
-					<td><a href="#">${article.title }</a></td>
+					<td><a href='<c:url value="/${article.boardName }board/${article.id }"/>'>${article.title }</a></td>
 					<td>${article.usernick }</td>
 					<td><joda:format value="${article.modificationTime}" style="SM" pattern="yy/M/d hh:mm" /></td>
 					<td>${article.num_read }</td>
