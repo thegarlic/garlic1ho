@@ -62,6 +62,11 @@ dependencies {
    testCompile ("org.dbunit:dbunit:2.5.0"){
         exclude group: 'junit', module: 'junit'
    }
+   
+   //logging
+   	compile "org.slf4j:slf4j-api:1.6.1"
+	compile "org.slf4j:slf4j-log4j12:1.6.1"
+	compile "log4j:log4j:1.2.16"
      
 }
 

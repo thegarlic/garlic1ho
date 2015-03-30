@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -37,11 +38,20 @@ public class BoardAritlceControllerTest {
 	}
 	
 	@Test
-	public void testHello() throws Exception {
-		mockMvc.perform(get("/board/free"))
+	public void index() throws Exception {
+		mockMvc.perform(get("/freeboard"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("board/index"))				
+				.andExpect(view().name("board/list"))				
 				.andExpect(model().attributeExists("articles"))
 				.andExpect(model().hasNoErrors());
+	}
+	
+	@Test
+	public void getId() throws Exception {
+		mockMvc.perform(get("/freeboard/4"))
+			.andExpect(status().isOk())
+			.andExpect(view().name("board/read"))
+			.andExpect(model().attributeExists("article"))
+			.andExpect(model().hasNoErrors());
 	}
 }

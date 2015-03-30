@@ -58,8 +58,9 @@ public class BoardArticle extends BaseEntity<Long> {
 		return getContentHolder().get(0);
 	}
 	//
-	
 	private String boardName;
+	private String usernick;
+	
 	
 	@Column(nullable=true)
 	private Integer num_read=0;
@@ -80,7 +81,20 @@ public class BoardArticle extends BaseEntity<Long> {
 		this.title = title;
 		setContent(content);
 	}
+	public BoardArticle(String title, String content, String boardName) {
+		super();
+		this.title = title;
+		this.boardName = boardName;
+		setContent(content);
+	}
 	
+	public BoardArticle(String title, String boardName, String usernick, String content) {
+		super();
+		this.title = title;
+		this.boardName = boardName;
+		this.usernick = usernick;
+		setContent(content);
+	}
 
 	public BoardArticle() {
 	}
@@ -88,12 +102,7 @@ public class BoardArticle extends BaseEntity<Long> {
 	
 	
 
-	public BoardArticle(String title, String content, String boardName) {
-		super();
-		this.title = title;
-		setContent(content);
-		this.boardName = boardName;
-	}
+	
 
 	public Long getId() {
 		return id;
@@ -141,6 +150,14 @@ public class BoardArticle extends BaseEntity<Long> {
 
 	public void setBoardName(String boardName) {
 		this.boardName = boardName;
+	}
+
+	public String getUsernick() {
+		return usernick;
+	}
+
+	public void setUsernick(String usernick) {
+		this.usernick = usernick;
 	}
 	
 	
