@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %><%@ 
-taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ 
-taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
+taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,30 +28,15 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 			</tr>
 		</thead>
 		<tbody>
-				<c:if test="${empty articles.content}">
 					<tr>
 						<td colspan="5">게시글이 없습니다. <a href="<c:url value="/${article.boardName }board/init"/>">세팅할까요?</a></td>
 					</tr>
-				</c:if>
-				<c:forEach var="article" items="${articles.content }">
-				
-				<tr>
-					<td>${article.id }</td>
-					<td><a href='<c:url value="/${article.boardName }board/${article.id }"/>'>${article.title }</a></td>
-					<td>${article.usernick }</td>
-					<td>${article.modificationTime}</td>
-					<td>${article.num_read }</td>
-				</tr>
-				</c:forEach>
 		</tbody>
 		<tfoot>
 			<tr>
 				<td colspan="5">
-					<c:if test="${articles.previous}"><a href="#">이전</a></c:if>
-					<c:forEach var="numPage" items="${articles.pages }">
-						<a href="<c:url value="/${boardName }board/${numPage }page"/>">${numPage }</a>
-					</c:forEach>
-					<c:if test="${articles.next}"><a href="#">다음</a></c:if>
+					<a href="<c:url value="/${article.boardName }board"/>">[목록]</a>
+					<input type="button" value="돌아가기" onclick="history.go(-1)" />
 					<a href='<c:url value="/${boardName }board/write"/>'>글쓰기</a>
 				</td>
 			</tr>

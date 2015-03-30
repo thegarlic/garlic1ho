@@ -61,6 +61,7 @@ public class BoardArticle extends BaseEntity<Long> {
 	
 	private String boardName;
 	private String usernick;
+	
 	@Column(nullable=true)
 	private Integer num_read=0;
 	@Column(nullable=true)
@@ -158,6 +159,15 @@ public class BoardArticle extends BaseEntity<Long> {
 	public void setUsernick(String usernick) {
 		this.usernick = usernick;
 	}
+
+	@Override
+	public String toString() {
+		return "BoardArticle [id=" + id + ", title=" + title + " content="+ getContent() + ", boardName="
+				+ boardName + ", usernick=" + usernick + ", num_read=" + num_read + ", num_like=" + num_like
+				+ ", num_dislike=" + num_dislike + "]";
+	}
+	
+	
 	
 	
 	

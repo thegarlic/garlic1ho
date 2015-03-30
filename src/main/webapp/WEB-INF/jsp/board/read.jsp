@@ -32,20 +32,20 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 		</tr>
 		<tr>
 			<td>작성일</td>
-			<td><joda:format value="${article.modificationTime}" style="SM" pattern="yy/M/d hh:mm" /></td>
+			<td>${article.modificationTime}</td>
 		</tr>
 		<tr>
 			<td>내용</td>
-			<td><%-- ${article.content } --%></td>
+			<td> ${article.content } </td>
 		</tr>
 	</tbody>
 	<tfoot>
 		<tr>
 			<td colspan="2">
 				<p style="text-align: center;">
-					<a href="#">[목록]</a>
-					<a href="#">[수정]</a>
-					<a href="#">[삭제]</a>
+					<a href="<c:url value="/${article.boardName }board"/>">[목록]</a>
+					<a href='<c:url value='/${article.boardName }board/${article.id }/update' />'>[수정]</a>
+					<a href='<c:url value='/${article.boardName }board/${article.id }/del' />'>[삭제]</a>
 				</p>
 			</td>
 		</tr>
