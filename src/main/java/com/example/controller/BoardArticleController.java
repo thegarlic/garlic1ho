@@ -95,6 +95,11 @@ public class BoardArticleController {
 		serviceBoard.initDB();
 		return gotoIndex(boardName);
 	}
+	@RequestMapping("deleteAll")
+	public String deleteAll(){
+		serviceBoard.deleteALL();
+		return gotoIndex("free");
+	}
 	
 	@ExceptionHandler(BoardArticleException.class)
 	public String articleNotFound(@PathVariable(BOARD_NAME) String boardName){

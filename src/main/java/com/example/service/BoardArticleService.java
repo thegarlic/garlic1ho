@@ -75,6 +75,10 @@ public class BoardArticleService {
 		return article;
 	}
 
+	public void deleteALL() {
+		repository.deleteAll();
+	}
+
 	
 
 	
