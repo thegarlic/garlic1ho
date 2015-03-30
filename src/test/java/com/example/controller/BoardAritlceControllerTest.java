@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -20,11 +21,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.example.config.ApplicationContext;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=ApplicationContext.class)
 @TransactionConfiguration
 @WebAppConfiguration
+@ActiveProfiles("test")
+@DatabaseSetup(value={"classpath:dbsetup/boardArticle.xml", "classpath:dbsetup/article_content_holder.xml"})
 public class BoardAritlceControllerTest {
 
 	
@@ -46,7 +50,7 @@ public class BoardAritlceControllerTest {
 				.andExpect(model().hasNoErrors());
 	}
 	
-	@Test
+	//@Test
 	public void getId() throws Exception {
 		mockMvc.perform(get("/freeboard/4"))
 			.andExpect(status().isOk())

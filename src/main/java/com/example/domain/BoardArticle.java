@@ -29,9 +29,9 @@ public class BoardArticle extends BaseEntity<Long> {
 	// 여기서부터 게시판 내용글 레이지로딩. 손권남님 위키 onetoone 부분 참고
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(
-			name = "article_content_holder", 
-			joinColumns = @JoinColumn(name = "article_id", 
-			foreignKey= @ForeignKey(name="fk_article_content_holder_id"),
+			name = "ARTICLE_CONTENT_HOLDER", 
+			joinColumns = @JoinColumn(name = "ARTICLE_ID", 
+			foreignKey= @ForeignKey(name="fk_id"),
 			unique = true))
 	@Column(name = "content", length = 1024)
 	private List<String> contentHolder;
@@ -58,10 +58,9 @@ public class BoardArticle extends BaseEntity<Long> {
 		return getContentHolder().get(0);
 	}
 	//
+	
 	private String boardName;
 	private String usernick;
-	
-	
 	@Column(nullable=true)
 	private Integer num_read=0;
 	@Column(nullable=true)
@@ -151,7 +150,7 @@ public class BoardArticle extends BaseEntity<Long> {
 	public void setBoardName(String boardName) {
 		this.boardName = boardName;
 	}
-
+	 
 	public String getUsernick() {
 		return usernick;
 	}

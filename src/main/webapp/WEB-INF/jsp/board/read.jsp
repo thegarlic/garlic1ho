@@ -24,7 +24,7 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 	<tbody>
 		<tr>
 			<td>제목</td>
-			<td>${aritlce.title }</td>
+			<td>${article.title }</td>
 		</tr>
 		<tr>
 			<td>작성자</td>
@@ -32,11 +32,11 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 		</tr>
 		<tr>
 			<td>작성일</td>
-			<td></td>
+			<td><joda:format value="${article.modificationTime}" style="SM" pattern="yy/M/d hh:mm" /></td>
 		</tr>
 		<tr>
 			<td>내용</td>
-			<td>${article.content }</td>
+			<td><%-- ${article.content } --%></td>
 		</tr>
 	</tbody>
 	<tfoot>

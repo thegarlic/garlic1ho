@@ -6,6 +6,7 @@
         <!ATTLIST board_article version CDATA #IMPLIED>
         <!ATTLIST board_article CREATION_TIME CDATA #IMPLIED>
         <!ATTLIST board_article modification_time CDATA #IMPLIED>
+		
 ]>
 
 <dataset>

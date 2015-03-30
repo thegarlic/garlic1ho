@@ -5,13 +5,13 @@ import java.util.Properties;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -71,14 +71,14 @@ public class PersistenceContext {
 		return entityManagerFactoryBean;
 	}
 	
-	@Bean
+	/*@Bean
 	public LocalSessionFactoryBean sessionFactory(){
 		LocalSessionFactoryBean annotationSessionFactoryBean = new LocalSessionFactoryBean();
 		annotationSessionFactoryBean.setDataSource(dataSource());
 		annotationSessionFactoryBean.setPackagesToScan(PROPERTY_PACKAGES_TO_SCAN);
 		annotationSessionFactoryBean.setHibernateProperties(hibernateProperties());
 		return annotationSessionFactoryBean;
-	}
+	}*/
 	
 	@Bean
 	Properties hibernateProperties(){
