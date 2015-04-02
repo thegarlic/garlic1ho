@@ -34,6 +34,7 @@ public class BoardArticleController {
 	
 	@Autowired BoardArticleService serviceBoard;
 	
+	
 	//List
 	@RequestMapping
 	public String index(Model model, @PathVariable(BOARD_NAME) String boardName) {
@@ -102,7 +103,7 @@ public class BoardArticleController {
 	}
 	
 	@ExceptionHandler(BoardArticleException.class)
-	public String articleNotFound(@PathVariable(BOARD_NAME) String boardName){
+	public String articleNotFound(){
 		return BOARD_ERROR;
 	}
 	private String gotoIndex(String boardName) {

@@ -29,7 +29,7 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		</thead>
 		<tbody>
 					<tr>
-						<td colspan="5">게시글이 없습니다. <a href="<c:url value="/${article.boardName }board/init"/>">세팅할까요?</a></td>
+						<td colspan="5">에러페이지 : 게시글이 없습니다. <a href="<c:url value="/${article.boardName }board/init"/>">세팅할까요?</a></td>
 					</tr>
 		</tbody>
 		<tfoot>
