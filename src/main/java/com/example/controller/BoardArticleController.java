@@ -37,11 +37,11 @@ public class BoardArticleController {
 	
 	//List
 	@RequestMapping
-	public String index(Model model, @PathVariable(BOARD_NAME) String boardName) {
+	public String index(Model model, @PathVariable(BOARD_NAME) String boardName) throws BoardArticleException {
 		return pageIndex(model, boardName, 1);
 	}
 	@RequestMapping("{page}page")
-	public String pageIndex(Model model, @PathVariable(BOARD_NAME) String boardName, @PathVariable("page") int page){
+	public String pageIndex(Model model, @PathVariable(BOARD_NAME) String boardName, @PathVariable("page") int page) throws BoardArticleException{
 		model.addAttribute(ARTICLES, serviceBoard.getArticlePageInfo(page, boardName));
 		return BOARD_LIST;
 	}

@@ -2,10 +2,6 @@ package com.example.exception;
 
 
 public class BoardArticleException extends Exception{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	public BoardArticleException() {
@@ -14,5 +10,4 @@ public class BoardArticleException extends Exception{
 	public BoardArticleException(String string) {
 		super(string);
 	}
-	
 }

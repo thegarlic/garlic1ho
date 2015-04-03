@@ -50,7 +50,7 @@ public class SpringMVCContext extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 	
-	@Bean
+	//@Bean
 	public SimpleMappingExceptionResolver exceptionResolver() {
 		SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
 		Properties exceptionMappings = new Properties();

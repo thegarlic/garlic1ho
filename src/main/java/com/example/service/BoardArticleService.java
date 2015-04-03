@@ -25,11 +25,11 @@ public class BoardArticleService {
 	@Autowired BoardArticleRepository repository;
 	
 	//List
-	public ArticlePageInfo getArticlePageInfo(String boardName){
+	public ArticlePageInfo getArticlePageInfo(String boardName) throws BoardArticleException{
 		return getArticlePageInfo(1, boardName);
 	}
 	
-	public ArticlePageInfo getArticlePageInfo(int page, String boardName) {
+	public ArticlePageInfo getArticlePageInfo(int page, String boardName) throws BoardArticleException {
 		//TODO 페이지 잘못들어왔을 때 검사해야함		
 		Sort sort = new Sort(Direction.DESC, ID);
 		Pageable pageable = new PageRequest(page-1, sizeDefault, sort);
@@ -69,7 +69,7 @@ public class BoardArticleService {
 	
 	public BoardArticle getArticle(Long id) throws BoardArticleException {
 		BoardArticle article = repository.findOne(id);
-		if(article==null) throw new BoardArticleException("해당 번호 : "+id+"에 해당하는 게시글이 없습니다");
+		if(article==null) throw new BoardArticleException("해당하는 게시글이 없습니다");
 		article.setContent(article.getContent());
 		LOGGER.debug("불러들인 게시글 {}", article);
 		return article;

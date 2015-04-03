@@ -52,6 +52,8 @@ dependencies {
    
    //util
    compile 'com.google.guava:guava:18.0'
+   compile 'com.navercorp.lucy:lucy-xss:1.6.3'
+   
    
    
    

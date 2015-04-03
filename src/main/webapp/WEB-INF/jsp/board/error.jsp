@@ -29,15 +29,15 @@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 		</thead>
 		<tbody>
 					<tr>
-						<td colspan="5">에러페이지 : 게시글이 없습니다. <a href="<c:url value="/${article.boardName }board/init"/>">세팅할까요?</a></td>
+						<td colspan="5"><c:out value="${requestScope['javax.servlet.error.message']}"/> </td>
 					</tr>
 		</tbody>
 		<tfoot>
 			<tr>
 				<td colspan="5">
-					<a href="<c:url value="/${article.boardName }board"/>">[목록]</a>
-					<input type="button" value="돌아가기" onclick="history.go(-1)" />
-					<a href='<c:url value="/${boardName }board/write"/>'>글쓰기</a>
+					
+					<a onclick="history.go(-1)">돌아가기</a>
+					
 				</td>
 			</tr>
 		</tfoot>
