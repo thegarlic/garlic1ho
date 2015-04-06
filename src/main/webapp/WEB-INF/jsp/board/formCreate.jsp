@@ -6,6 +6,12 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>글 쓰기</title>
+
+<!-- include libries(jQuery, bootstrap, fontawesome) -->
+<link href="<c:url value="/assets/bootstrap/dist/css/bootstrap.min.css"/>" rel="stylesheet"> 
+<link href="<c:url value="/assets/font-awesome/css/font-awesome.min.css"/>" rel="stylesheet">
+<!-- include summernote css-->
+<link href="<c:url value="/assets/summernote/dist/summernote.css"/>" rel="stylesheet">
 <link rel="stylesheet" href='<c:url value="/assets/css/style_board.css"></c:url>' type="text/css" />
 </head>
 <body>
@@ -33,7 +39,7 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><textarea name="content" id="ir1"  rows="5" cols="40"></textarea></td>
+				<td><textarea id="summernote" name="content" id="ir1"  rows="5" cols="40"></textarea></td>
 			</tr>
 		</tbody>
 		<tfoot>
@@ -51,5 +57,13 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 </div>
 
 </div>
+<script src="<c:url value="/assets/jquery/dist/jquery.min.js"/>"></script> 
+<script src="<c:url value="/assets/bootstrap/dist/js/bootstrap.min.js"/>"></script> 
+<script src="<c:url value="/assets/summernote/dist/summernote.min.js"/>"></script>
+<script>
+$(document).ready(function() {
+	$('#summernote').summernote();
+});
+</script>
 </body>
 </html>
