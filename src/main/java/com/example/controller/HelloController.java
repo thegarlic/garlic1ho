@@ -11,7 +11,8 @@ public class HelloController {
 	@ResponseBody
 	public String hello(){
 		return "Hello world ! first board"
-				+ "<a href='/thegarlic1ho/freeboard/init'>링크</a>";
+				+ "<a href='/thegarlic1ho/freeboard/init'>link!! </a><br><Br>if this link is broken,  "
+				+ "<a href='/garlic1ho/freeboard/init'> come here~</a>";
 	}
 	
 }
