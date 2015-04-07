@@ -16,6 +16,7 @@ import com.example.dto.ArticlePageInfo;
 import com.example.exception.BoardArticleException;
 import com.example.repository.BoardArticleRepository;
 
+
 @Service
 @Transactional
 public class BoardArticleService {

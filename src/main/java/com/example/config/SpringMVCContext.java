@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
-import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -23,8 +22,6 @@ public class SpringMVCContext extends WebMvcConfigurerAdapter {
 	private static final String VIEW_RESOLVER_PREFIX = "/WEB-INF/jsp/";
 	private static final String VIEW_RESOLVER_SUFFIX = ".jsp";
 
-	
-	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
@@ -34,12 +31,6 @@ public class SpringMVCContext extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
 	}
-	/*@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		OpenSessionInViewInterceptor osivInterceptor = new OpenSessionInViewInterceptor(); 
-		osivInterceptor.setSessionFactory(sessionFactory); 
-		registry.addWebRequestInterceptor(osivInterceptor); 
-	};*/
 
 	@Bean
 	public ViewResolver viewResolver() {
@@ -49,8 +40,8 @@ public class SpringMVCContext extends WebMvcConfigurerAdapter {
 		viewResolver.setSuffix(VIEW_RESOLVER_SUFFIX);
 		return viewResolver;
 	}
-	
-	//@Bean
+
+	// @Bean
 	public SimpleMappingExceptionResolver exceptionResolver() {
 		SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
 		Properties exceptionMappings = new Properties();

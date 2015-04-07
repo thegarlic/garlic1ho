@@ -39,8 +39,8 @@ public class WebXmlConfig implements WebApplicationInitializer {
         
         FilterRegistration.Dynamic characterEncoding = servletContext.addFilter("characterEncoding", characterEncodingFilter);
         characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
-        FilterRegistration.Dynamic osivFilter = servletContext.addFilter("osivFilter", new OpenSessionInViewFilter());
-        osivFilter.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+        /*FilterRegistration.Dynamic osivFilter = servletContext.addFilter("osivFilter", new OpenSessionInViewFilter());
+        osivFilter.addMappingForUrlPatterns(dispatcherTypes, true, "/*");*/
         
        
         servletContext.addListener(new ContextLoaderListener(rootContext));
