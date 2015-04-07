@@ -6,19 +6,19 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시판</title>
-<link rel="stylesheet" href='<c:url value="/assets/css/style_board.css"></c:url>' type="text/css" />
+<link rel="stylesheet" href='<c:url value="/assets/css/style_board_responsive.css"></c:url>' type="text/css" />
 </head>
 <body>
 	<div class="container">
 		<div id="board">
-	<table id="table_board" class="list">
-		<colgroup>
+	<table id="table_board" class="list board_table">
+		<%-- <colgroup>
 			<col width="150">
 			<col width="50%">
 			<col width="350">
 			<col width="100">
 			<col width="150">
-		</colgroup>
+		</colgroup> --%>
 		<thead>
 			<tr>
 				<th>번호</th>
