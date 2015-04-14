@@ -22,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.example.config.ApplicationContext;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.sun.org.apache.xpath.internal.operations.And;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=ApplicationContext.class)

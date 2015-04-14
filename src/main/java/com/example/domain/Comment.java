@@ -1,10 +1,13 @@
 package com.example.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 
@@ -20,10 +23,19 @@ public class Comment extends BaseEntity<Long> {
 	@Type(type="text")
 	private String comment;
 	
-	@ManyToOne
+	@ManyToOne(
+			targetEntity=BoardArticle.class,
+			cascade=CascadeType.ALL
+			)
 	private BoardArticle article;
 	
 	
+	public BoardArticle getArticle() {
+		return article;
+	}
+	public void setArticle(BoardArticle article) {
+		this.article = article;
+	}
 	private boolean secret;
 	private int good;
 	public Long getId() {
@@ -57,5 +69,13 @@ public class Comment extends BaseEntity<Long> {
 	public void setGood(int good) {
 		this.good = good;
 	}
+	
+	@Override
+	public String toString() {
+		return "Comment [id=" + id + ", nick=" + nick + ", comment=" + comment + ", article=" + article + ", secret="
+				+ secret + ", good=" + good + "]";
+	}
+	
+	
 
 }
