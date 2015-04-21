@@ -65,8 +65,7 @@ public class BoardArticle extends BaseEntity<Long> {
 	private Integer num_dislike = 0;
 
 	@OneToMany(targetEntity=Comment.class, 
-			mappedBy="comment",
-			cascade=CascadeType.ALL,
+			mappedBy="article",
 			fetch=FetchType.LAZY
 			)
 	private List<Comment> comments;

@@ -43,6 +43,7 @@ public class BoardArticleController {
 	@RequestMapping("{page}page")
 	public String pageIndex(Model model, @PathVariable(BOARD_NAME) String boardName, @PathVariable("page") int page) throws BoardArticleException{
 		model.addAttribute(ARTICLES, serviceBoard.getArticlePageInfo(page, boardName));
+		LOGGER.debug("articles : {}", ARTICLES);
 		return BOARD_LIST;
 	}
 	

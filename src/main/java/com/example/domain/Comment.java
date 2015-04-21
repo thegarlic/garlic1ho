@@ -20,13 +20,21 @@ public class Comment extends BaseEntity<Long> {
 	
 	@Column(length=20)
 	private String nick;
+	private String password;
 	@Type(type="text")
-	private String comment;
+	private String comments;
 	
-	@ManyToOne(
-			targetEntity=BoardArticle.class,
-			cascade=CascadeType.ALL
-			)
+	
+	public Comment() {
+	}
+	public Comment(String nick, String comments) {
+		super();
+		this.nick = nick;
+		this.comments = comments;
+	}
+
+
+	@ManyToOne(targetEntity=BoardArticle.class)
 	private BoardArticle article;
 	
 	
@@ -36,8 +44,11 @@ public class Comment extends BaseEntity<Long> {
 	public void setArticle(BoardArticle article) {
 		this.article = article;
 	}
+	@Column(nullable = true)
 	private boolean secret;
-	private int good;
+	@Column(nullable = true)
+	private int num_like;
+	
 	public Long getId() {
 		return id;
 	}
@@ -51,11 +62,11 @@ public class Comment extends BaseEntity<Long> {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-	public String getComment() {
-		return comment;
+	public String getComments() {
+		return comments;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 	public boolean isSecret() {
 		return secret;
@@ -63,18 +74,30 @@ public class Comment extends BaseEntity<Long> {
 	public void setSecret(boolean secret) {
 		this.secret = secret;
 	}
-	public int getGood() {
-		return good;
+
+	public int getNum_like() {
+		return num_like;
 	}
-	public void setGood(int good) {
-		this.good = good;
+
+	public void setNum_like(int num_like) {
+		this.num_like = num_like;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", nick=" + nick + ", comment=" + comment + ", article=" + article + ", secret="
-				+ secret + ", good=" + good + "]";
+		return "Comment [id=" + id + ", nick=" + nick + ", comments=" + comments + ", secret=" + secret + ", num_like="
+				+ num_like + "]";
 	}
+	
+	
 	
 	
 

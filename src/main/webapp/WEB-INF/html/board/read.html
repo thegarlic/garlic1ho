@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>게시판</title>
+<link rel="stylesheet" href='../../../assets/css/style_board.css' type="text/css" />
+</head>
+<body>
+	<div class="container">
+		<div id="board">
+	<table id="table_board" class="read">
+	<colgroup>
+		<col width="150">
+		<col width="80%">
+	</colgroup>
+	<thead>
+		<tr>
+			<th colspan="2">글 읽기</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>제목</td>
+			<td>${article.title }</td>
+		</tr>
+		<tr>
+			<td>작성자</td>
+			<td>${article.usernick }</td>
+		</tr>
+		<tr>
+			<td>작성일</td>
+			<td>${article.modificationTime}</td>
+		</tr>
+		<tr>
+			<td>내용</td>
+			<td> ${article.content } </td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="2">
+				<p style="text-align: center;">
+					<a href="#"/>[목록]</a>
+					<a href='#' />[수정]</a>
+					<a href='#' />[삭제]</a>
+				</p>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+
+<table id="table_board" class="reply">
+	<colgroup>
+		<col width="150">
+		<col width="80%">
+	</colgroup>
+	<thead>
+		<tr>
+		<th>
+			
+			<form id="replyFrm" action='' method="post">
+				<textarea class="txtArea_guest" rows="5" name="comment"></textarea><br>
+				<input type="text">님께서
+				<input type="password"> 비밀번호로 
+				<input type="button" onclick="inputReply('reply')" value="댓글" />다십니다^^
+				
+				<input type="checkbox" name="secret" value="1"><span style="font-size:16px;">비밀로요♥</span>
+			</form>
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<div>아라한사 | 16-04-16 16:48 | 수정 | 삭제</div>
+				<div>좋아요 | 싫어요</div>
+				<div>
+				weasdfjklasjdkflsadkflsadjlfasjklfksjla jaksldfjkalsfjklasdkfjasdjfalskfdkasdklfasdlkf asjkdladsjljkl
+				</div>
+			</td>
+			
+		</tr>
+		<tr>
+			<td>
+				아라한사 | 16-04-16 16:48 | 수정 | 삭제<br>
+				내용
+			</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="5">
+				1개의 댓글 | 
+				<a href="#">이전</a>
+				<a href="#">1</a>
+				<a href="#">다음</a>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+
+
+</div>
+
+</div>
+</body>
+</html>

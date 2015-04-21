@@ -1,4 +1,5 @@
 package com.example.repository;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,26 +27,37 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @ActiveProfiles("test")
-@Transactional
-public class CommentRepositoryTest {
 
+public class CommentRepositoryTest {
+	
+	private static final String JEMOK = "jemok";
+	private static final String HI = "hi";
 	@Autowired CommentRepository repository;
 	@Autowired BoardArticleRepository repoArticle;
+	
 	@Test
 	public void test() {
-		BoardArticle article = new BoardArticle("jemok");
-		
-		
+		BoardArticle article = new BoardArticle(JEMOK);
 		Comment comment = new Comment();
+		comment.setNick(HI);
+		comment.setArticle(article);		
 		
-		comment.setNick("hi");
-		comment.setArticle(article);
-		/*List<Comment> list =  new ArrayList<Comment>();
-		list.add(comment);
-		article.setComments(list);*/
 		repository.save(comment);
 		
-		
+		Comment getComment = getJustoneComment();
+		BoardArticle getArticle= getJustoneArticle();
+		assertEquals(getComment.getNick(), HI);
+		assertEquals(getArticle.getTitle(), JEMOK);
+	}
+	
+	
+	
+	private Comment getJustoneComment(){
+		return repository.findAll().get((int) (repository.count() -1));
+	}
+	
+	private BoardArticle getJustoneArticle() {
+		return repoArticle.findAll().get((int) (repoArticle.count() - 1));
 	}
 
 }
