@@ -23,8 +23,8 @@ public class CommentService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CommentService.class);
 	
-	public List<BoardArticle> findAll() {
-		return repoBoard.findAll();
+	public List<Comment> findAll() {
+		return repoComment.findAll();
 	}
 
 	public void save(Long boardArticleId, Comment comment) {

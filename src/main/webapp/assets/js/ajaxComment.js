@@ -4,13 +4,11 @@ function createComments() {
 		alert("댓글 내용을 입력해주세요..");
 	} else {
 		var form = $('#replyFrm');
-				
 		$.ajax({
 			type : form.attr('method'),
 			url : form.attr('action'),
 			data : form.serialize(),
 			success : function(result) {
-				alert("결과"+ result);
 				$("#tbody").remove();
 				$("#tfoot").remove();
 				$("#thead").after(result);
@@ -35,6 +33,12 @@ $(function() {
 			return;
 		}  
 	});
+	//처음에 읽을 시 댓글 불러오기
+	var address = $('#replyFrm').attr('action');
+	$.get( address, function( data ) {
+		  $("#thead").after( data );
+	});
+	
 });
 function ajax_delete(num, obj){
 	var urlAddress=$("#hiddenAddress").val();
