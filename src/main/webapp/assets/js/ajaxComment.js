@@ -27,7 +27,6 @@ $(function() {
 		if(confirm("댓글을 삭제 하시겠습니까?")){
 			var num = $(this).parent().parent().parent()[0].id;
 			var obj = $(this).parent().parent().parent();
-			alert(num);
 			ajax_delete(num, obj);
 		}else{
 			return;

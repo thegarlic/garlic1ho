@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.BoardArticle;
@@ -24,7 +26,8 @@ public class CommentService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CommentService.class);
 	
 	public List<Comment> findAll() {
-		return repoComment.findAll();
+		Sort sort = new Sort(Direction.DESC, "id");
+		return repoComment.findAll(sort);
 	}
 
 	public void save(Long boardArticleId, Comment comment) {
