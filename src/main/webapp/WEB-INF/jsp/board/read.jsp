@@ -7,9 +7,7 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>글 읽기</title>
 <link rel="stylesheet" href='<c:url value="/assets/css/style_board.css"></c:url>' type="text/css" />
-<!-- script -->
-<script type="text/javascript" src="<c:url value="/assets/jquery/dist/jquery.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/assets/js/ajaxComment.js"/>"></script>
+
 
 </head>
 <input type="hidden" id="hiddenAddress" value="<c:url value="/ajax/comments/" />"/>
@@ -84,7 +82,8 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 </div>
 </div>
 
-
-
+<!-- script -->
+<script type="text/javascript" src="<c:url value="/assets/jquery/dist/jquery.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/assets/js/ajaxComment.js"/>"></script>
 </body>
 </html>

@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,28 +34,41 @@ public class CommentRepositoryTest {
 	
 	private static final String JEMOK = "jemok";
 	private static final String HI = "hi";
-	@Autowired CommentRepository repository;
+	@Autowired CommentRepository repoComment;
 	@Autowired BoardArticleRepository repoArticle;
 	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(CommentRepositoryTest.class);
 	@Test
-	public void test() {
+	public void 게시글넣고댓글넣고_게시글을조건으로댓글불러와보기() {
 		BoardArticle article = new BoardArticle(JEMOK);
+		repoArticle.save(article);
+		
 		Comment comment = new Comment();
 		comment.setNick(HI);
 		comment.setArticle(article);		
-		
-		repository.save(comment);
-		
+		repoComment.save(comment);
+
 		Comment getComment = getJustoneComment();
 		BoardArticle getArticle= getJustoneArticle();
 		assertEquals(getComment.getNick(), HI);
 		assertEquals(getArticle.getTitle(), JEMOK);
+		
+		LOGGER.debug("모조댓글넣기전의 게시글객체 {}",getArticle);
+		BoardArticle fakeArticle = new BoardArticle();
+		fakeArticle.setId(getArticle.getId());
+		LOGGER.debug("불러오기전의 모조객체{}",fakeArticle);
+		List<Comment> getComments = repoComment.findByArticleOrderByIdDesc(fakeArticle);
+		for (Comment comment2 : getComments) {
+			System.out.println("불러온 댓글 :"+comment2);
+			assertEquals(comment2.getNick(), HI);
+		}
 	}
 	
 	
 	
 	private Comment getJustoneComment(){
-		return repository.findAll().get((int) (repository.count() -1));
+		return repoComment.findAll().get((int) (repoComment.count() -1));
 	}
 	
 	private BoardArticle getJustoneArticle() {

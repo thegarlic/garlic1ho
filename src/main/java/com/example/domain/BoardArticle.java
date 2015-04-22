@@ -106,6 +106,9 @@ public class BoardArticle extends BaseEntity<Long> {
 
 	public BoardArticle() {
 	}
+	public BoardArticle(Long id){
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;
