@@ -268,3 +268,7 @@ input {
 #table_board.reply tbody span {
 	font-size: 14px;
 }
+
+#table_board.reply tfoot a{
+	cursor:pointer;
+}

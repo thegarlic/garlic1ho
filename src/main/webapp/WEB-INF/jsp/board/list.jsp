@@ -48,11 +48,11 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 		<tfoot>
 			<tr>
 				<td colspan="5">
-					<c:if test="${articles.previous}"><a href="#">이전</a></c:if>
+					<c:if test="${articles.previous}"><a href="<c:url value="/${boardName }board/${articles.beginPage-1 }page"/>">이전</a></c:if>
 					<c:forEach var="numPage" items="${articles.pages }">
 						<a href="<c:url value="/${boardName }board/${numPage }page"/>">${numPage }</a>
 					</c:forEach>
-					<c:if test="${articles.next}"><a href="#">다음</a></c:if>
+					<c:if test="${articles.next}"><a href="<c:url value="/${boardName }board/${articles.endPage+1 }page"/>">다음</a></c:if>
 					<a href='<c:url value="/${boardName }board/write"/>'>글쓰기</a>
 				</td>
 			</tr>

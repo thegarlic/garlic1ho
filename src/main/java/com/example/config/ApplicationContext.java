@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-import com.example.aop.LucyAspect;
+import com.example.aop.LucyAspect4BoardArticle;
 
 @Configuration
 @Import({ SpringMVCContext.class, PersistenceContext.class })
@@ -28,8 +28,8 @@ public class ApplicationContext {
 	}
 	
 	//LUCY AOP 
-	@Bean LucyAspect lucyAspect(){
-		return new LucyAspect();
+	@Bean LucyAspect4BoardArticle lucyAspect(){
+		return new LucyAspect4BoardArticle();
 	}
 		
 }

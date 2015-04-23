@@ -7,13 +7,13 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.aop.LucyAspect;
+import com.example.aop.LucyAspect4BoardArticle;
 import com.example.domain.BoardArticle;
 import com.nhncorp.lucy.security.xss.XssFilter;
 
 @Aspect
 public class LucyAspectT{
-	private static final Logger LOGGER = LoggerFactory.getLogger(LucyAspect.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(LucyAspect4BoardArticle.class);
 
 	@Pointcut("execution(* sandbox.learn_aop.LucyTestService.create(..))")
 	private void profileTarget() {

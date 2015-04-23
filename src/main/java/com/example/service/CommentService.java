@@ -1,7 +1,5 @@
 package com.example.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -35,10 +33,17 @@ public class CommentService {
 	
 	
 	public CommentPageInfo getCommentPageInfo(Long boardArticleId, int page) throws BoardArticleException {
+		BoardArticle fakeArticle = new BoardArticle(boardArticleId);
+		//댓글 정렬
 		Sort sort = new Sort(Direction.DESC, ID);
 		Pageable pageable = new PageRequest(page-1, sizeDefault, sort);
-		Page<Comment> pageBoard =repoComment.findByArticle(pageable, new BoardArticle(boardArticleId));
-		CommentPageInfo commentPageInfo = new CommentPageInfo(pageBoard);
+		Page<Comment> pageBoard =repoComment.findByArticle(pageable, fakeArticle);
+		//댓글 개수 
+		long num_comments = repoComment.countByArticle(fakeArticle);
+		System.out.println(num_comments);
+		//DTO로 넣어줘서 뿌리기
+		CommentPageInfo commentPageInfo = new CommentPageInfo(pageBoard, boardArticleId, num_comments);
+		LOGGER.debug("코멘트 페이지 정보 : {}", commentPageInfo);
 		return commentPageInfo;
 	}
 

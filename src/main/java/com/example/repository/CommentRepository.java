@@ -16,6 +16,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 	public List<Comment> findByNick(String nick);
 	public List<Comment> findByArticleOrderByIdDesc(BoardArticle article);
 	public Page<Comment> findByArticle(Pageable pageable, BoardArticle article);
+	public Long countByArticle(BoardArticle article);
 	
 	@Modifying(clearAutomatically=true)
 	@Query("update Comment t set t.num_like = t.num_like + 1 where t.id = ?1")

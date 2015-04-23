@@ -1,3 +1,15 @@
+/*List */
+function listComments(pageNumber){
+	var address = $('#replyFrm').attr('action');
+	address += "/"+pageNumber+"page";
+	$.get( address, function( data ) {
+		$("#tbody").remove();
+		$("#tfoot").remove();
+		$("#thead").after( data );
+	});
+}
+
+
 /*Create*/
 function createComments() {
 	if ($(".txtArea_guest").val() == "") {

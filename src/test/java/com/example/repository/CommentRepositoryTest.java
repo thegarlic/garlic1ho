@@ -63,6 +63,8 @@ public class CommentRepositoryTest {
 			System.out.println("불러온 댓글 :"+comment2);
 			assertEquals(comment2.getNick(), HI);
 		}
+		System.out.println("댓글 개수 :"+repoComment.countByArticle(fakeArticle));
+		
 	}
 	
 	

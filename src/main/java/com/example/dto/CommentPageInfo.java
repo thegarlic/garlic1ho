@@ -31,11 +31,14 @@ public class CommentPageInfo {
 	private int[] pages;
 	private boolean previous;
 	private boolean next;
+	//코멘트 갯수
+	private long num_comments;
+	private Long boardArticleId;
 	
 	public CommentPageInfo() {
 	}
 	
-	public CommentPageInfo(Page<Comment> pageBoard) throws BoardArticleException{
+	public CommentPageInfo(Page<Comment> pageBoard, Long boardArticleId, long num_comments) throws BoardArticleException{
 		this.numTotalPage = pageBoard.getTotalPages();
 		this.beginPage = pageBoard.getNumber() / numArticlePerPage * numArticlePerPage + 1;
 		this.endPage = (beginPage + numArticlePerPage - 1) > numTotalPage ? numTotalPage : beginPage + numArticlePerPage - 1;
@@ -50,6 +53,8 @@ public class CommentPageInfo {
 		for (int i = 0, j=beginPage; i < pages.length; i++, j++) {
 			pages[i] = j;
 		}
+		this.num_comments = num_comments; 
+		this.boardArticleId =boardArticleId;
 	}
 
 	public static int getNumArticlePerPage() {
@@ -119,13 +124,34 @@ public class CommentPageInfo {
 	public static int getNumpages() {
 		return numPages;
 	}
+	
+
+	public long getNum_comments() {
+		return num_comments;
+	}
+
+	public void setNum_comments(long num_comments) {
+		this.num_comments = num_comments;
+	}
+
+	public Long getBoardArticleId() {
+		return boardArticleId;
+	}
+
+	public void setBoardArticleId(Long boardArticleId) {
+		this.boardArticleId = boardArticleId;
+	}
+	
+	
 
 	@Override
 	public String toString() {
-		return "CommentPageInfo [content=" + content + ", numTotalPage=" + numTotalPage + ", beginPage=" + beginPage
+		return "CommentPageInfo [numTotalPage=" + numTotalPage + ", beginPage=" + beginPage
 				+ ", endPage=" + endPage + ", pages=" + Arrays.toString(pages) + ", previous=" + previous + ", next=" + next
-				+ "]";
+				+ ", num_comments=" + num_comments + ", boardArticleId=" + boardArticleId + "]";
 	}
+
+	
 	
 	
 

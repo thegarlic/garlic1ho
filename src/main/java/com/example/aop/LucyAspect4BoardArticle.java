@@ -11,8 +11,8 @@ import com.example.domain.BoardArticle;
 import com.nhncorp.lucy.security.xss.XssFilter;
 
 @Aspect
-public class LucyAspect{
-	private static final Logger LOGGER = LoggerFactory.getLogger(LucyAspect.class);
+public class LucyAspect4BoardArticle{
+	private static final Logger LOGGER = LoggerFactory.getLogger(LucyAspect4BoardArticle.class);
 
 	//TODO 이 부분은 좀 더 세련되게 바꿔야한다. 
 	@Pointcut("execution(* com.example.service.BoardArticleService.create(..))")
