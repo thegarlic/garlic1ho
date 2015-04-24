@@ -39,6 +39,8 @@ public class CommentRepositoryTest {
 	
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CommentRepositoryTest.class);
+	
+	
 	@Test
 	public void 게시글넣고댓글넣고_게시글을조건으로댓글불러와보기() {
 		BoardArticle article = new BoardArticle(JEMOK);
@@ -64,6 +66,11 @@ public class CommentRepositoryTest {
 			assertEquals(comment2.getNick(), HI);
 		}
 		System.out.println("댓글 개수 :"+repoComment.countByArticle(fakeArticle));
+		
+	}
+	
+	@Test
+	public void 수정해보기테스트() throws Exception {
 		
 	}
 	

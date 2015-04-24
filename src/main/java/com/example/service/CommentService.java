@@ -49,13 +49,26 @@ public class CommentService {
 
 	public void save(Long boardArticleId, Comment comment) {
 		BoardArticle article = repoBoard.findOne(boardArticleId);
-		comment.setArticle(article);
+		//comment.setArticle(article);
+		comment.setArticle(new BoardArticle(boardArticleId));
 		LOGGER.debug("article : {}, Comment : {}", article, comment);
 		repoComment.save(comment);
+	}
+	public Comment findOne(Long commentId){
+		return repoComment.findOne(commentId);
+	}
+	
+	
+	public void update(Comment comment, Comment original){
+		LOGGER.debug("저장하기 전의 comment : {}", original);
+		original.setComments(comment.getComments());
+		LOGGER.debug("설정후 오리지널comment : {} 과 받은 코멘트 : {}", original, comment);
+		repoComment.save(original);
 	}
 
 	public String delete(Long commentsId) {
 		repoComment.delete(commentsId);
+		//TODO 여기 삭제 아직은 무조건 1리턴임.
 		return "1";
 	}
 	

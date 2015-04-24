@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import org.h2.command.dml.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,14 @@ public class CommentController {
 	public String create(@PathVariable Long boardArticleId, Comment comment){
 		service.save(boardArticleId, comment);
 		return "redirect:/ajax/comments/"+boardArticleId;
+	}
+	
+	//Update
+	@RequestMapping(value="/{commentId}update" , method=RequestMethod.POST)
+	@ResponseBody
+	public String update(@PathVariable Long commentId, Comment comment){
+		service.update(comment, service.findOne(commentId));
+		return "1";
 	}
 	
 	//Delete

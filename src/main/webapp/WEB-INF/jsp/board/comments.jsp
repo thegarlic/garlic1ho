@@ -9,10 +9,10 @@
 	</tr>
 </c:if>
 <c:forEach var="comment" items="${comments.content}">
-		<tr id="${comment.id } ">
+		<tr id="${comment.id}">
 			<td>
-				<div>${comment.nick } | 16-04-16 16:48 | 수정 | <a class="btn_delete">삭제</a></div>
-				<div>좋아요 | 싫어요</div>
+				<div>${comment.nick } | 16-04-16 16:48 | <a class="btn_modify">수정</a> | <a class="btn_delete">삭제</a></div>
+				<div><a class="like">좋아요</a> | <a class="dislike">싫어요</a></div>
 				<div>${comment.comments }</div>
 			</td>
 		</tr>
