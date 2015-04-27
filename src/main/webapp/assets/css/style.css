@@ -43,3 +43,23 @@ input {
 	margin-left: auto;
 	margin-bottom: 30px;
 }
+
+/* Petri */
+
+.content {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.sign-in-text {
+    padding-right: 2em;
+}
+
+.social-button-row {
+    padding-top: 1.0em;
+}
+
+/*petri plus*/
+h2, label{
+    color: black;
+}

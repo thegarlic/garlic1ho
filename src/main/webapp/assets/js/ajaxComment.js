@@ -36,6 +36,7 @@ function updateComment(commentId, getForm){
 	if ($(".ta_update").val() == "") {
 		alert("댓글 내용을 입력해주세요.."+commentId);
 	} else {
+
 		var urlAddress=$("#hiddenAddress").val();
 		var finalAddress = urlAddress+commentId+"update";
 		var form = $('.updateComment');
@@ -115,6 +116,13 @@ $(function() {
 	$.get( address, function( data ) {
 		  $("#thead").after( data );
 	});
+
+    //ajax csrf token
+    var token = $("input[name='_csrf']").val();
+    var header = "X-CSRF-TOKEN";
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
 	
 });
 function ajax_delete(num, obj){

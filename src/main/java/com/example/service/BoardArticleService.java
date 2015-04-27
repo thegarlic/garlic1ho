@@ -1,5 +1,8 @@
 package com.example.service;
 
+import com.example.domain.User;
+import com.example.dto.ExampleUserDetails;
+import com.nhncorp.lucy.security.xss.XssPreventer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,8 +47,16 @@ public class BoardArticleService {
 	
 	//Create
 	public void create(BoardArticle article, String boardName) {
-		article.setBoardName(boardName);
+        Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LOGGER.debug("시큐리티홀더에서 얻은 유저 정보 {}" , object);
+        if(!object.toString().equals("anonymousUser")){
+            ExampleUserDetails details = (ExampleUserDetails)object;
+            article.setUser(new User(details.getId()));
+            article.setUsernick(details.getFirstName());
+        }
+        article.setBoardName(boardName);
 		LOGGER.debug("저장하기전의 게시글 :{}", article);
+
 		repository.save(article);
 	}
 	//Read
@@ -62,9 +74,9 @@ public class BoardArticleService {
 	}
 	
 	//--------------------------------------------------------
-	public void initDB(){
+	public void initDB(String boardName){
 		for(int i=0;i<50;i++)
-			repository.save(new BoardArticle("제목"+i, "free", "닉넴"+i, "content"+i));
+			repository.save(new BoardArticle("제목"+i, boardName, "닉넴"+i, "content"+i));
 		LOGGER.debug("초기화 완료");
 	}
 	

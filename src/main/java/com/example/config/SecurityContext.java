@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.social.security.SpringSocialConfigurer;
 
@@ -35,7 +36,8 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http.headers().addHeaderWriter(new StaticHeadersWriter("X-Content-Security-Policy","script-src 'self'"))
+             .and().formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/login/authenticate")
                     .failureUrl("/login?error=bad_credentials")
@@ -49,7 +51,10 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
              				"/auth/**",
              				"/login",
              				"/signup/**",
-             				"/user/register/**"
+             				"/user/register/**",
+                            "/",
+                            "/*board/**",
+                            "/ajax/**"
                      ).permitAll()
                      .antMatchers("/**").hasRole("USER")
              .and().apply(new SpringSocialConfigurer());

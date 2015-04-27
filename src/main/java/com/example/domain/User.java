@@ -1,19 +1,14 @@
 package com.example.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.example.domain.common.BaseEntity;
 import com.example.domain.common.Role;
 import com.example.domain.common.SocialMediaService;
+
+import java.util.List;
 
 /**
  * @author Petri Kainulainen
@@ -45,6 +40,33 @@ public class User extends BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     @Column(name = "sign_in_provider", length = 20)
     private SocialMediaService signInProvider;
+
+    @OneToMany(targetEntity=Comment.class,
+            mappedBy="user",
+            fetch=FetchType.LAZY
+    )
+    private List<Comment> comments;
+
+    public User(Long id) {
+        super();
+        this.id = id;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @OneToMany(targetEntity=BoardArticle.class,
+            mappedBy="user",
+            fetch=FetchType.LAZY
+    )
+    private List<BoardArticle> boardArticles;
+    public List<BoardArticle> getBoardArticles() {    return boardArticles;    }
+    public void setBoardArticles(List<BoardArticle> boardArticles) {        this.boardArticles = boardArticles;    }
 
     public User() {
 
@@ -87,13 +109,13 @@ public class User extends BaseEntity<Long> {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("creationTime", this.getCreationTime())
+                //.append("creationTime", this.getCreationTime())
                 .append("email", email)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
-                .append("modificationTime", this.getModificationTime())
-                .append("signInProvider", this.getSignInProvider())
-                .append("version", this.getVersion())
+                //.append("modificationTime", this.getModificationTime())
+                //.append("signInProvider", this.getSignInProvider())
+                //.append("version", this.getVersion())
                 .toString();
     }
 

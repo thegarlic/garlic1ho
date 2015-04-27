@@ -3,18 +3,7 @@ package com.example.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.example.domain.common.BaseEntity;
 
@@ -80,7 +69,12 @@ public class BoardArticle extends BaseEntity<Long> {
 		this.comments = comments;
 	}
 
-	public BoardArticle(String title) {
+    @ManyToOne(targetEntity = User.class)
+    private User user;
+    public User getUser() {return user; }
+    public void setUser(User user) {this.user = user;}
+
+    public BoardArticle(String title) {
 		super();
 		this.title = title;
 	}
@@ -168,11 +162,19 @@ public class BoardArticle extends BaseEntity<Long> {
 		this.usernick = usernick;
 	}
 
-	@Override
-	public String toString() {
-		return "BoardArticle [id=" + id + ", title=" + title + " content=" + getContent() + ", boardName=" + boardName
-				+ ", usernick=" + usernick + ", num_read=" + num_read + ", num_like=" + num_like + ", num_dislike="
-				+ num_dislike + "]";
-	}
-
+    @Override
+    public String toString() {
+        return "BoardArticle{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", contentHolder=" + contentHolder +
+                ", boardName='" + boardName + '\'' +
+                ", usernick='" + usernick + '\'' +
+                ", num_read=" + num_read +
+                ", num_like=" + num_like +
+                ", num_dislike=" + num_dislike +
+                ", comments=" + comments +
+                ", user=" + user +
+                '}';
+    }
 }

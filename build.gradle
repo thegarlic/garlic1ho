@@ -69,9 +69,11 @@ dependencies {
    compile("org.springframework.social:spring-social-web:${versions.springsocial}")
    compile("org.springframework.social:spring-social-facebook:${versions.springsocial}")
    compile("org.springframework.social:spring-social-twitter:${versions.springsocial}")
-   
-   
-   //test
+
+    //SiteMEsh
+    compile 'org.sitemesh:sitemesh:3.0.0'
+
+    //test
    testCompile("org.springframework:spring-test:${versions.spring}")
    testCompile('junit:junit:4.11')
    testCompile 'com.github.springtestdbunit:spring-test-dbunit:1.2.1'

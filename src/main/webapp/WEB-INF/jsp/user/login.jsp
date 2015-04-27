@@ -6,7 +6,7 @@
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/social-buttons-3.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/social-buttons-3.css"/>
 </head>
 <body>
 <div class="page-header">

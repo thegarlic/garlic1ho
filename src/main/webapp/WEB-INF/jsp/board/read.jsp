@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %><%@ 
 taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ 
 taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,9 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 
 
 </head>
-<input type="hidden" id="hiddenAddress" value="<c:url value="/ajax/comments/" />"/>
+
 <body>
+<input type="hidden" id="hiddenAddress" value="<c:url value="/ajax/comments/" />"/>
 	<div class="container">
 		<div id="board">
 	<table id="table_board" class="read">
@@ -49,7 +51,6 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 					<a href="<c:url value="/${article.boardName }board"/>">[목록]</a>
 					<a href='<c:url value='/${article.boardName }board/${article.id }/update' />'>[수정]</a>
 					<a href='<c:url value='/${article.boardName }board/${article.id }/del' />'>[삭제]</a>
-					<a class="btn_delete">댓글삭제 자바스크립트 테스트</a>
 				</p>
 			</td>
 		</tr>
@@ -65,11 +66,19 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 		<th>
 			<c:url var="formUrl" value="/ajax/comments/${article.id}" />
 			<form id="replyFrm" action='${formUrl }' method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<textarea class="txtArea_guest" rows="5" name="comments"></textarea><br>
-				<input type="text" name="nick">님께서
-				<input type="password" name="password"> 비밀번호로 
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authentication property="principal.firstName"/>님께서
+                </sec:authorize>
+                <sec:authorize access="isAnonymous()">
+                    <input type="text" name="nick">님께서
+                    <input type="password" name="password"> 비밀번호로
+                </sec:authorize>
 				<input type="button" onclick="createComments()" value="댓글" />다십니다^^
-				<input type="checkbox" name="secret" value="1"><span style="font-size:16px;">비밀로요♥</span>
+                <sec:authorize access="isAuthenticated()">
+				    <input type="checkbox" name="secret" value="1"><span style="font-size:16px;">비밀로요♥</span>
+                </sec:authorize>
 			</form>
 		</th>
 	</tr>

@@ -38,6 +38,8 @@ public class Comment extends BaseEntity<Long> {
 
 	@ManyToOne(targetEntity=BoardArticle.class)
 	private BoardArticle article;
+    @ManyToOne(targetEntity = User.class)
+    private User user;
 	
 	
 	public BoardArticle getArticle() {
@@ -93,7 +95,15 @@ public class Comment extends BaseEntity<Long> {
 		this.password = password;
 	}
 
-	@Override
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
 	public String toString() {
 		return "Comment [id=" + id + ", nick=" + nick + ", comments=" + comments + ", secret=" + secret + ", num_like="
 				+ num_like + "]";

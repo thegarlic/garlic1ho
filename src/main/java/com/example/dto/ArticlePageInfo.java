@@ -38,7 +38,7 @@ public class ArticlePageInfo {
 		this.next = endPage < numTotalPage;
 		if(endPage<beginPage){
 			LOGGER.debug("endPage {} , beginPage{} ", endPage, beginPage);
-			throw new BoardArticleException("해당 페이지 목록은 없습니다.");
+			throw new BoardArticleException("해당 페이지 목록은 없습니다.hm");
 		}
 		this.pages = new int[endPage-beginPage+1];
 		for (int i = 0, j=beginPage; i < pages.length; i++, j++) {

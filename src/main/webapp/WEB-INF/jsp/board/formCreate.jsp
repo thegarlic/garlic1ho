@@ -18,6 +18,7 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 	<div class="container">
 		<div id="board">
 	<form method="post" action="<c:url value="/${boardName }board"/>">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<table id="table_board" class="writeForm">
 		<colgroup>
 			<col width="150">

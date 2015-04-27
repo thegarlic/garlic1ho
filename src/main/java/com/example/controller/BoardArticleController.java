@@ -94,7 +94,7 @@ public class BoardArticleController {
 	//-----------------------------------------------------------------
 	@RequestMapping("init")
 	public String init(@PathVariable(BOARD_NAME) String boardName){
-		serviceBoard.initDB();
+		serviceBoard.initDB(boardName);
 		return gotoIndex(boardName);
 	}
 	@RequestMapping("deleteAll")
