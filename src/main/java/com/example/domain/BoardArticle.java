@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.example.domain.common.BaseEntity;
+
 @Entity
 public class BoardArticle extends BaseEntity<Long> {
 

@@ -14,7 +14,7 @@ import com.example.repository.BoardArticleRepository;
 import com.example.repository.CommentRepository;
 
 @Controller
-public class HelloController {
+public class HomeController {
 	@Autowired CommentRepository repository;
 	@Autowired BoardArticleRepository repoArticle;
 	

@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 
+import com.example.domain.common.BaseEntity;
+
 @Entity
 public class Comment extends BaseEntity<Long> {
 

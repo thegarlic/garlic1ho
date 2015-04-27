@@ -1,4 +1,4 @@
-package com.example.domain;
+package com.example.domain.common;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

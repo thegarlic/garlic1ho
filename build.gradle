@@ -8,7 +8,9 @@ versions = [
 		jdk:'1.8',
 		spring:'4.1.5.RELEASE',
 		hibernate:'4.3.8.Final',
-		springdatajpa:'1.7.2.RELEASE'
+		springdatajpa:'1.7.2.RELEASE',
+		springsecurity:'3.2.5.RELEASE',
+		springsocial :'1.1.0.RELEASE'
 	]
 }
 
@@ -54,6 +56,20 @@ dependencies {
    compile 'com.google.guava:guava:18.0'
    compile 'com.navercorp.lucy:lucy-xss:1.6.3'
    compile 'org.aspectj:aspectjweaver:1.8.5'
+   
+   //spring social
+   	compile "org.springframework.security:spring-security-core:${versions.springsecurity}"
+   	compile "org.springframework.security:spring-security-config:${versions.springsecurity}"
+	compile "org.springframework.security:spring-security-taglibs:${versions.springsecurity}"
+	compile "org.springframework.security:spring-security-web:${versions.springsecurity}"
+   
+   compile("org.springframework.social:spring-social-config:${versions.springsocial}")
+   compile("org.springframework.social:spring-social-core:${versions.springsocial}")
+   compile("org.springframework.social:spring-social-security:${versions.springsocial}")
+   compile("org.springframework.social:spring-social-web:${versions.springsocial}")
+   compile("org.springframework.social:spring-social-facebook:${versions.springsocial}")
+   compile("org.springframework.social:spring-social-twitter:${versions.springsocial}")
+   
    
    //test
    testCompile("org.springframework:spring-test:${versions.spring}")

@@ -14,6 +14,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
@@ -39,10 +40,8 @@ public class WebXmlConfig implements WebApplicationInitializer {
         
         FilterRegistration.Dynamic characterEncoding = servletContext.addFilter("characterEncoding", characterEncodingFilter);
         characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
-        /*FilterRegistration.Dynamic osivFilter = servletContext.addFilter("osivFilter", new OpenSessionInViewFilter());
-        osivFilter.addMappingForUrlPatterns(dispatcherTypes, true, "/*");*/
-        
-       
+        FilterRegistration.Dynamic security = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
+        security.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
         servletContext.addListener(new ContextLoaderListener(rootContext));
     }
 }
