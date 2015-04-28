@@ -51,6 +51,7 @@ public class CommentController {
 	@ResponseBody
 	public String update(@PathVariable Long commentId, Comment comment){
 		service.update(comment, service.findOne(commentId));
+        //TODO 이거 무조건1 하는거 바꿔야 한다.
 		return "1";
 	}
 	
