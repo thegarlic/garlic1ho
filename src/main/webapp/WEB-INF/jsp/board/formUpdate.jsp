@@ -48,6 +48,7 @@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 			<tr>
 				<td colspan="2">
 					<p style="text-align: center;">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<input type="submit" value="전송" />
 						<input type="button" value="돌아가기" onclick="history.go(-1)" />
 					</p>

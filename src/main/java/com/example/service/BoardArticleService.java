@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class BoardArticleService {
 	private static final String ID = "id";
 	public static int sizeDefault = 10;
 	@Autowired BoardArticleRepository repository;
+    @Autowired PasswordEncoder passwordEncoder;
 	
 	//List
 	public ArticlePageInfo getArticlePageInfo(String boardName) throws BoardArticleException{
@@ -51,8 +53,10 @@ public class BoardArticleService {
         LOGGER.debug("시큐리티홀더에서 얻은 유저 정보 {}" , object);
         if(!object.toString().equals("anonymousUser")){
             ExampleUserDetails details = (ExampleUserDetails)object;
-            article.setUser(new User(details.getId()));
+            article.setUserid(details.getId());
             article.setUsernick(details.getFirstName());
+        }else{
+            article.setPassword(passwordEncoder.encode(article.getPassword()));
         }
         article.setBoardName(boardName);
 		LOGGER.debug("저장하기전의 게시글 :{}", article);
@@ -72,11 +76,24 @@ public class BoardArticleService {
 	public void delete(Long id) {
 		repository.delete(id);
 	}
-	
+
+    //--------------------------------------------------------
+    public BoardArticle checkPassword(String getPassword, Long articleId) throws BoardArticleException {
+        BoardArticle article = getArticle(articleId);
+        LOGGER.debug("받은 비밀번호 {} 와 원래 게시글 비밀번호{} ", getPassword, article.getPassword());
+        return passwordEncoder.matches(getPassword, article.getPassword()) ? article : null;
+    }
+
+
+
 	//--------------------------------------------------------
 	public void initDB(String boardName){
-		for(int i=0;i<50;i++)
-			repository.save(new BoardArticle("제목"+i, boardName, "닉넴"+i, "content"+i));
+		String encodedPassword = passwordEncoder.encode("1234");
+        for(int i=0;i<30;i++){
+            BoardArticle article = new BoardArticle("제목"+i, boardName, "닉넴"+i, "content"+i);
+            article.setPassword(encodedPassword);
+            repository.save(article);
+        }
 		LOGGER.debug("초기화 완료");
 	}
 	

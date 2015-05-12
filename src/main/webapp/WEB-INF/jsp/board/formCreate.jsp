@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %><%@ 
 taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@ 
 taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,20 +31,6 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 				<th colspan="2">글쓰기</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="title" size="20"><br></td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td><input type="text" name="usernick"></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea id="summernote" name="content" id="ir1"  rows="5" cols="40"></textarea></td>
-			</tr>
-		</tbody>
 		<tfoot>
 			<tr>
 				<td colspan="2">
@@ -53,7 +41,33 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 				</td>
 			</tr>
 		</tfoot>
-	</table>
+        <tbody>
+        <tr>
+            <td>제목</td>
+            <td><input type="text" name="title" size="20"><br></td>
+        </tr>
+        <sec:authorize access="isAnonymous()">
+            <tr>
+                <td>비밀번호</td>
+                <td><input type="password" name="password" size="20"><br></td>
+            </tr>
+        <tr>
+            <td>작성자</td>
+            <td><input type="text" name="usernick"></td>
+        </tr>
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
+            <tr>
+                <td>작성자</td>
+                <td><input type="text" name="usernick" readonly value="<sec:authentication property="principal.firstName"/>"></td>
+            </tr>
+        </sec:authorize>
+        <tr>
+            <td>내용</td>
+            <td><textarea id="summernote" name="content" id="ir1"  rows="10" cols="40"></textarea></td>
+        </tr>
+        </tbody>
+    </table>
 </form>
 </div>
 
@@ -63,7 +77,10 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <script src="<c:url value="/assets/summernote/dist/summernote.min.js"/>"></script>
 <script>
 $(document).ready(function() {
-	$('#summernote').summernote();
+    $('#summernote').summernote({
+        height: 300,   //set editable area's height
+        focus: true    //set focus editable area after Initialize summernote
+    });
 });
 </script>
 </body>

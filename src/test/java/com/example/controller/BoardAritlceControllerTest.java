@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import com.example.domain.BoardArticle;
+import com.example.repository.BoardArticleRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +34,10 @@ import com.sun.org.apache.xpath.internal.operations.And;
 @DatabaseSetup(value={"classpath:dbsetup/boardArticle.xml", "classpath:dbsetup/article_content_holder.xml"})
 public class BoardAritlceControllerTest {
 
-	
+    private static final String MESSAGE = "message";
+    private static final String HELLOWORLD = "helloworld";
+    @Autowired
+    BoardArticleRepository repository;
 	@Autowired
 	private WebApplicationContext ctx;
 	
@@ -44,6 +49,9 @@ public class BoardAritlceControllerTest {
 	
 	@Test
 	public void index() throws Exception {
+        BoardArticle article = new BoardArticle(HELLOWORLD, MESSAGE);
+        article.setBoardName("free");
+        repository.save(article);
 		mockMvc.perform(get("/freeboard"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("board/list"))				

@@ -41,7 +41,7 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 		</tr>
 		<tr>
 			<td>내용</td>
-			<td> ${article.content } </td>
+			<td> ${article.content }  </td>
 		</tr>
 	</tbody>
 	<tfoot>
@@ -49,8 +49,17 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 			<td colspan="2">
 				<p style="text-align: center;">
 					<a href="<c:url value="/${article.boardName }board"/>">[목록]</a>
-					<a href='<c:url value='/${article.boardName }board/${article.id }/update' />'>[수정]</a>
-					<a href='<c:url value='/${article.boardName }board/${article.id }/del' />'>[삭제]</a>
+                   <c:if test="${article.userid eq null}">
+                       <a href='<c:url value='/${article.boardName }board/${article.id }/update' />'>[수정]</a>
+                       <a href='<c:url value='/${article.boardName }board/${article.id }/del' />'>[삭제]</a>
+                   </c:if>
+                    <sec:authorize access="isAuthenticated()">
+                    <sec:authentication var="userid" property="principal.id" />
+                    <c:if test="${article.userid eq userid}">
+                        <a href='<c:url value='/${article.boardName }board/${article.id }/update' />'>[수정]</a>
+                        <a href='<c:url value='/${article.boardName }board/${article.id }/del' />'>[삭제]</a>
+                    </c:if>
+                    </sec:authorize>
 				</p>
 			</td>
 		</tr>

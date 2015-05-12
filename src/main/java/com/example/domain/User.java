@@ -60,13 +60,7 @@ public class User extends BaseEntity<Long> {
         this.comments = comments;
     }
 
-    @OneToMany(targetEntity=BoardArticle.class,
-            mappedBy="user",
-            fetch=FetchType.LAZY
-    )
-    private List<BoardArticle> boardArticles;
-    public List<BoardArticle> getBoardArticles() {    return boardArticles;    }
-    public void setBoardArticles(List<BoardArticle> boardArticles) {        this.boardArticles = boardArticles;    }
+
 
     public User() {
 

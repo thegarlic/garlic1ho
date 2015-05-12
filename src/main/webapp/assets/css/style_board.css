@@ -118,7 +118,7 @@ input {
 	color: #0681ce;
 }
 
-}
+
 
 /* List */
 #table_board.list tbody a {
@@ -148,7 +148,7 @@ input {
 /*  WriteFrom  */
 #table_board.writeForm input[type=text], #table_board.writeForm textarea,
 	#table_board.reply textarea {
-	width: 90%;
+	/*width: 90%;*/
 	height: 100%;
 	float: left;
 	/* border: 0px; */
@@ -158,6 +158,10 @@ input {
 	color: black;
 	-webkit-text-stroke: 1px rgba(142, 128, 113, 0.3);
 }
+#table_board.writeForm input[name=title]{
+    width: 80%;
+}
+
 
 #table_board.writeForm tfoot input[type=submit], #table_board.writeForm input[type=button],
 	#table_board.reply input[type=button] {
@@ -192,8 +196,7 @@ input {
 	font-size: 18px;
 	-webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
 	font-weight: 400;
-	padding: 10px;
-	padding-left: 15px;
+    padding: 10px 10px 10px 15px;
 }
 #table_contents{
 	padding: 25px;
@@ -201,12 +204,11 @@ input {
 
 #table_board.reply th {
 	background-color: #efe8e2;
-	border-top: 4px solid ffffff /* #ebc85e */;
+	border-top: 4px solid #ffffff /* #ebc85e */;
 	color: #8e8071;
-	
-	padding: 30px;
-	padding-top : 0px;
-	border-bottom: 1px solid gray;
+
+    padding: 0px 30px 30px;
+    border-bottom: 1px solid gray;
 }
 
 #table_board.reply td{

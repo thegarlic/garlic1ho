@@ -2,6 +2,8 @@ package com.example.service;
 
 import javax.transaction.Transactional;
 
+import com.example.domain.User;
+import com.example.dto.ExampleUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.BoardArticle;
@@ -51,6 +54,14 @@ public class CommentService {
 		BoardArticle article = repoBoard.findOne(boardArticleId);
 		//comment.setArticle(article);
 		comment.setArticle(new BoardArticle(boardArticleId));
+
+        Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LOGGER.debug("시큐리티홀더에서 얻은 유저 정보 {}" , object);
+        if(!object.toString().equals("anonymousUser")){
+            ExampleUserDetails details = (ExampleUserDetails)object;
+            comment.setUser(new User(details.getId()));
+            comment.setNick(details.getFirstName());
+        }
 		LOGGER.debug("article : {}, Comment : {}", article, comment);
 		repoComment.save(comment);
 	}

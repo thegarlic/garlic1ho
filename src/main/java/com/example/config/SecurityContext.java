@@ -93,4 +93,6 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         return new RepositoryUserDetailsService(userRepository);
     }
+
+
 }

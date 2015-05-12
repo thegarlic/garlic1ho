@@ -1,8 +1,10 @@
 package com.example.controller;
 
+import com.example.dto.ExampleUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,7 +23,7 @@ import com.example.service.BoardArticleService;
 @RequestMapping("/{boardName}board")
 @SessionAttributes("updateArticle")
 public class BoardArticleController {
-	private static final String BOARD_ERROR = "board/error";
+    private static final String BOARD_ERROR = "board/error";
 	private static final String BOARD_NAME = "boardName";
 	private static final String ARTICLES = "articles";
 	private static final String ARTICLE = "article";
@@ -31,8 +33,10 @@ public class BoardArticleController {
 	private static final String BOARD_READ = "board/read";
 	private static final String BOARD_LIST = "board/list";
 	private static final Logger LOGGER = LoggerFactory.getLogger(BoardArticleController.class);
-	
-	@Autowired BoardArticleService serviceBoard;
+    public static final String BOARD_FORM_PASSWORD = "board/formPassword";
+    public static final String FORM_TYPE = "FormType";
+
+    @Autowired BoardArticleService serviceBoard;
 	
 	
 	//List
@@ -70,9 +74,35 @@ public class BoardArticleController {
 	//UpdateForm
 	@RequestMapping("/{id}/update")
 	public String formUpdate(@PathVariable("id") Long id, Model model) throws BoardArticleException{
-		model.addAttribute(UPDATE_ARTCILE, serviceBoard.updateArticleFormLoad(id));
+        BoardArticle article = serviceBoard.updateArticleFormLoad(id);
+        if(article.getUserid()==null){
+            model.addAttribute(ARTICLE, article);
+            model.addAttribute(FORM_TYPE, "update");
+            return BOARD_FORM_PASSWORD;
+        }else{
+            Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            ExampleUserDetails details = (ExampleUserDetails)object;
+            if(details.getId()==article.getUserid()){
+                model.addAttribute(UPDATE_ARTCILE, article);
+            }else{
+                throw new BoardArticleException("글 수정 권한이 없습니다. 어떻게 들어오셨는지요?");
+            }
+        }
 		return BOARD_FORM_UPDATE;
 	}
+    @RequestMapping(value="/{id}/update", method=RequestMethod.POST)
+    public String passwordCheckUpdate(@PathVariable(BOARD_NAME) String boardName, @PathVariable("id") Long id, String password, Model model) throws BoardArticleException {
+        BoardArticle article = serviceBoard.checkPassword(password, id);
+        if(article != null){
+            model.addAttribute(UPDATE_ARTCILE, article);
+            return BOARD_FORM_UPDATE;
+        }else{
+            model.addAttribute("isPassword", false);
+            model.addAttribute(FORM_TYPE, "update");
+            model.addAttribute(ARTICLE, new BoardArticle(id, boardName));
+            return BOARD_FORM_PASSWORD;
+        }
+    }
 	
 	//Update
 	@RequestMapping(value="/{id}", method=RequestMethod.POST)
@@ -81,14 +111,43 @@ public class BoardArticleController {
 		serviceBoard.create(article, boardName);
 		sessionStatus.setComplete();
 		return gotoRead(boardName, id);
-	}	
-	
+	}
+
 	//Delete
 	@RequestMapping("/{id}/del")
-	public String delete(@PathVariable(BOARD_NAME) String boardName, @PathVariable("id") Long id){
-		serviceBoard.delete(id);
+	public String delete(@PathVariable(BOARD_NAME) String boardName, @PathVariable("id") Long id, Model model) throws BoardArticleException {
+        //TODO 리팩토링이 필요하다... 수정폼과 비슷한 구조다. 댓글 수정삭제 권한으로도 이어지면 이거 낭비다.
+        BoardArticle article = serviceBoard.updateArticleFormLoad(id);
+        if(article.getUserid()==null){
+            model.addAttribute(ARTICLE, article);
+            model.addAttribute(FORM_TYPE, "del");
+            return BOARD_FORM_PASSWORD;
+        }else{
+            Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            ExampleUserDetails details = (ExampleUserDetails)object;
+            if(details.getId()==article.getUserid()){
+                serviceBoard.delete(id);
+            }else{
+                throw new BoardArticleException("글 삭제 권한이 없습니다. 어떻게 들어오셨는지요?");
+            }
+        }
 		return gotoIndex(boardName);
 	}
+
+    //Delete
+    @RequestMapping(value="/{id}/del", method = RequestMethod.POST)
+    public String passwordCheckDelete(@PathVariable(BOARD_NAME) String boardName, @PathVariable("id") Long id, String password, Model model) throws BoardArticleException {
+        BoardArticle article = serviceBoard.checkPassword(password, id);
+        if(article != null){
+            serviceBoard.delete(id);
+            return gotoIndex(boardName);
+        }else{
+            model.addAttribute("isPassword", false);
+            model.addAttribute("FormType", "del");
+            model.addAttribute(ARTICLE, new BoardArticle(id, boardName));
+            return BOARD_FORM_PASSWORD;
+        }
+    }
 
 
 	//-----------------------------------------------------------------

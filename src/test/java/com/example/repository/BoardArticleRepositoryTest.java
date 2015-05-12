@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -22,16 +23,18 @@ import com.example.config.PersistenceContext;
 import com.example.domain.BoardArticle;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {PersistenceContext.class})
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+@ContextConfiguration(classes = { ApplicationContext.class })
+@WebAppConfiguration
 @ActiveProfiles("test")
 /* 잠깐 쓴 다른 방식.
  * @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationContext.class })
 @WebAppConfiguration
+@ContextConfiguration(classes = {PersistenceContext.class})
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 */
 public class BoardArticleRepositoryTest {
 
@@ -39,6 +42,8 @@ public class BoardArticleRepositoryTest {
 	private static final String HELLOWORLD = "helloworld";
 	@Autowired
 	BoardArticleRepository repository;
+    @Autowired
+    PasswordEncoder encoder;
 
 	@Before
 	public void setup() {
@@ -49,12 +54,25 @@ public class BoardArticleRepositoryTest {
 		assertEquals(repository.count(), 1);
 	}
 
+    @Test
+    public void 비밀번호입력확인() throws Exception{
+        BoardArticle article = new BoardArticle(HELLOWORLD);
+        String password = encoder.encode("1234");
+        article.setPassword(password);
+
+        repository.save(article);
+        BoardArticle getArticle = getJustoneArticle();
+        assertEquals(getArticle.getTitle(), HELLOWORLD);
+        encoder.matches("1234", getArticle.getPassword());
+    }
+
 	@Test
 	public void 저장후_확인보기() throws Exception {
 		BoardArticle getArticle = getJustoneArticle();
 		assertEquals(getArticle.getTitle(), HELLOWORLD);
 		assertNotNull(getArticle.getCreationTime());
 	}
+
 
 	@Test
 	public void 수정() throws Exception {

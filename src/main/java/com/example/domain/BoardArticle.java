@@ -6,6 +6,9 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.example.domain.common.BaseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 public class BoardArticle extends BaseEntity<Long> {
@@ -17,7 +20,19 @@ public class BoardArticle extends BaseEntity<Long> {
 	@Column(length = 100, nullable = false)
 	private String title;
 
-	// 여기서부터 게시판 내용글 레이지로딩. 손권남님 위키 onetoone 부분 참고
+    @Column(length = 512)
+    private String password;
+
+
+
+    public String getPassword(){
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // 여기서부터 게시판 내용글 레이지로딩. 손권남님 위키 onetoone 부분 참고
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "ARTICLE_CONTENT_HOLDER", joinColumns = @JoinColumn(name = "ARTICLE_ID", foreignKey = @ForeignKey(name = "fk_id"), unique = true))
 	@Column(name = "content", length = 1024)
@@ -60,24 +75,27 @@ public class BoardArticle extends BaseEntity<Long> {
 			fetch=FetchType.LAZY
 			)
 	private List<Comment> comments;
-
 	public List<Comment> getComments() {
 		return comments;
 	}
-
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 
-    @ManyToOne(targetEntity = User.class)
-    private User user;
-    public User getUser() {return user; }
-    public void setUser(User user) {this.user = user;}
+    private Long userid;
+    public Long getUserid() {       return userid;    }
+    public void setUserid(Long userid) {        this.userid = userid;    }
 
     public BoardArticle(String title) {
 		super();
 		this.title = title;
 	}
+
+    public BoardArticle(Long id, String boardName) {
+        super();
+        setId(id);
+        setBoardName(boardName);
+    }
 
 	public BoardArticle(String title, String content) {
 		super();
@@ -174,7 +192,7 @@ public class BoardArticle extends BaseEntity<Long> {
                 ", num_like=" + num_like +
                 ", num_dislike=" + num_dislike +
                 ", comments=" + comments +
-                ", user=" + user +
+                ", userid="+userid+
                 '}';
     }
 }
