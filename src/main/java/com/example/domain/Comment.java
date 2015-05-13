@@ -38,7 +38,7 @@ public class Comment extends BaseEntity<Long> {
 
 	@ManyToOne(targetEntity=BoardArticle.class)
 	private BoardArticle article;
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(targetEntity = User.class, fetch=FetchType.LAZY)
     private User user;
 	
 	

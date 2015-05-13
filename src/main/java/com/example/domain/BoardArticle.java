@@ -191,7 +191,6 @@ public class BoardArticle extends BaseEntity<Long> {
                 ", num_read=" + num_read +
                 ", num_like=" + num_like +
                 ", num_dislike=" + num_dislike +
-                ", comments=" + comments +
                 ", userid="+userid+
                 '}';
     }

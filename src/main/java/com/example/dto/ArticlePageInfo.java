@@ -30,16 +30,23 @@ public class ArticlePageInfo {
 	}
 
 	public ArticlePageInfo(Page<BoardArticle> pageBoard) throws BoardArticleException{
+		
 		this.numTotalPage = pageBoard.getTotalPages();
+		
 		this.beginPage = pageBoard.getNumber() / numArticlePerPage * numArticlePerPage + 1;
+		
 		this.endPage = (beginPage + numArticlePerPage - 1) > numTotalPage ? numTotalPage : beginPage + numArticlePerPage - 1;
+		
 		this.content = pageBoard.getContent();
+		
 		this.previous = beginPage > numPages;
+		
 		this.next = endPage < numTotalPage;
 		if(endPage<beginPage){
 			LOGGER.debug("endPage {} , beginPage{} ", endPage, beginPage);
 			throw new BoardArticleException("해당 페이지 목록은 없습니다.hm");
 		}
+		
 		this.pages = new int[endPage-beginPage+1];
 		for (int i = 0, j=beginPage; i < pages.length; i++, j++) {
 			pages[i] = j;
@@ -112,7 +119,7 @@ public class ArticlePageInfo {
 
 	@Override
 	public String toString() {
-		return "ArticlePageInfo [content=" + content + ", numTotalPage=" + numTotalPage + ", beginPage=" + beginPage
+		return "ArticlePageInfo [numTotalPage=" + numTotalPage + ", beginPage=" + beginPage
 				+ ", endPage=" + endPage + ", pages=" + Arrays.toString(pages) + ", previous=" + previous + ", next=" + next
 				+ "]";
 	}

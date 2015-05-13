@@ -39,8 +39,11 @@ public class BoardArticleService {
 	public ArticlePageInfo getArticlePageInfo(int page, String boardName) throws BoardArticleException {
 		//TODO 페이지 잘못들어왔을 때 검사해야함		
 		Sort sort = new Sort(Direction.DESC, ID);
+		LOGGER.debug("페이지 리퀘스트 작성");
 		Pageable pageable = new PageRequest(page-1, sizeDefault, sort);
+		LOGGER.debug("게시판 네임으로 찾기");
 		Page<BoardArticle> pageBoard =repository.findByBoardName(pageable, boardName);
+		LOGGER.debug("아티클 페이지 인포 생성");
 		ArticlePageInfo articlePageInfo = new ArticlePageInfo(pageBoard);
 		LOGGER.debug("페이지 인포 정보 {}", articlePageInfo);
 		return articlePageInfo;

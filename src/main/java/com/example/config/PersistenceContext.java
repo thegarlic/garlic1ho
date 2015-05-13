@@ -100,7 +100,7 @@ public class PersistenceContext {
 	}
 
 	@Configuration
-	@Profile("test")
+	//@Profile("test")
 	@PropertySource(value={"classpath:application.properties","classpath:application-test.properties"})
 	static class TestConfig {
 		@Resource
