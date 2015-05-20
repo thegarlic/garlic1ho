@@ -65,6 +65,7 @@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 		</tr>
 	</tfoot>
 </table>
+
 <table id="table_board" class="reply">
 	<colgroup>
 		<col width="150">

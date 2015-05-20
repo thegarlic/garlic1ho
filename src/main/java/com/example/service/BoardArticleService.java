@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.domain.User;
 import com.example.dto.ExampleUserDetails;
 import com.nhncorp.lucy.security.xss.XssPreventer;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,9 @@ public class BoardArticleService {
 	public ArticlePageInfo getArticlePageInfo(int page, String boardName) throws BoardArticleException {
 		//TODO 페이지 잘못들어왔을 때 검사해야함		
 		Sort sort = new Sort(Direction.DESC, ID);
-		LOGGER.debug("페이지 리퀘스트 작성");
 		Pageable pageable = new PageRequest(page-1, sizeDefault, sort);
-		LOGGER.debug("게시판 네임으로 찾기");
 		Page<BoardArticle> pageBoard =repository.findByBoardName(pageable, boardName);
-		LOGGER.debug("아티클 페이지 인포 생성");
+
 		ArticlePageInfo articlePageInfo = new ArticlePageInfo(pageBoard);
 		LOGGER.debug("페이지 인포 정보 {}", articlePageInfo);
 		return articlePageInfo;
@@ -103,8 +102,8 @@ public class BoardArticleService {
 	public BoardArticle getArticle(Long id) throws BoardArticleException {
 		BoardArticle article = repository.findOne(id);
 		if(article==null) throw new BoardArticleException("해당하는 게시글이 없습니다");
-		article.setContent(article.getContent());
-		LOGGER.debug("불러들인 게시글 {}", article);
+        //Hibernate.initialize(article.getContent());
+		//LOGGER.debug("불러들인 게시글34 {}", article);
 		return article;
 	}
 

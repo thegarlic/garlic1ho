@@ -58,6 +58,17 @@ public class BoardAritlceControllerTest {
 				.andExpect(model().attributeExists("articles"))
 				.andExpect(model().hasNoErrors());
 	}
+
+    @Test
+    public void init() throws Exception {
+        mockMvc.perform(get("/freeboard/init"));
+        mockMvc.perform(get("/freeboard/29"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("board/read"))
+                .andExpect(model().attributeExists("article"))
+                .andExpect(model().hasNoErrors());
+
+    }
 	
 	//@Test
 	public void getId() throws Exception {

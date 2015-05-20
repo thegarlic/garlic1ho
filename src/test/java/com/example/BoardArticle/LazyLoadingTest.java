@@ -46,17 +46,19 @@ public class LazyLoadingTest {
 	@Test
 	@Transactional
 	public void t02_글목록받아와보기() throws Exception {
-		//repository.save(new BoardArticle("hello world", "안녕하세요. 메시지입니다"));
-		BoardArticle  getArticle = getJustoneArticle();
+		BoardArticle  getArticle = 최근게시글불러오기();
 		em=entityManagerFactory.createEntityManager();
 		PersistenceUnitUtil unitUtil = em.getEntityManagerFactory().getPersistenceUnitUtil();
-		assertTrue(unitUtil.isLoaded(getArticle));
+
+        assertTrue(unitUtil.isLoaded(getArticle));
 		System.out.println("아직 레이지 로딩 구문 나오기 전임.");
 		assertFalse(unitUtil.isLoaded(getArticle, "contentHolder"));
-		System.out.println("받은 메시지 "+getArticle.getContent());
+        System.out.println("이 메시지 이후로 sql문이 뜹니다.");
+        System.out.println("받은 메시지 "+getArticle.getContent());
 	}
 	
-	private BoardArticle getJustoneArticle() {
-		return repository.findAll().get((int) (repository.count() - 1));
+	private BoardArticle 최근게시글불러오기() {
+		long a = repository.count() - 1;
+        return repository.findAll().get((int) a);
 	}
 }

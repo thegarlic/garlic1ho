@@ -17,7 +17,7 @@ public class BoardArticle extends BaseEntity<Long> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(length = 100, nullable = false)
+	@Column(nullable = false)
 	private String title;
 
     @Column(length = 512)
@@ -34,8 +34,10 @@ public class BoardArticle extends BaseEntity<Long> {
 
     // 여기서부터 게시판 내용글 레이지로딩. 손권남님 위키 onetoone 부분 참고
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "ARTICLE_CONTENT_HOLDER", joinColumns = @JoinColumn(name = "ARTICLE_ID", foreignKey = @ForeignKey(name = "fk_id"), unique = true))
-	@Column(name = "content", length = 1024)
+	@CollectionTable(name = "ARTICLE_CONTENT_HOLDER",
+            joinColumns = @JoinColumn(name = "ARTICLE_ID", foreignKey = @ForeignKey(name = "fk_id"), unique = true))
+	@Column(name = "content")
+    @Lob
 	private List<String> contentHolder;
 
 	public List<String> getContentHolder() {

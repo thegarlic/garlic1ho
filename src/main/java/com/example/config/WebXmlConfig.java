@@ -3,14 +3,12 @@ package com.example.config;
 
 import java.util.EnumSet;
 
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+
+import javax.servlet.*;
+
 
 import org.sitemesh.config.ConfigurableSiteMeshFilter;
-import org.springframework.orm.hibernate4.support.OpenSessionInViewFilter;
+
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -43,6 +41,11 @@ public class WebXmlConfig implements WebApplicationInitializer {
         characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
         FilterRegistration.Dynamic security = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
         security.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+
+
+//        OpenSessionInViewFilter openSessionInViewFilter= new OpenSessionInViewFilter();
+//        FilterRegistration.Dynamic osiv = servletContext.addFilter("springSecurityFilterChain", openSessionInViewFilter);
+//        osiv.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
 
         FilterRegistration.Dynamic sitemesh = servletContext.addFilter("sitemesh", new ConfigurableSiteMeshFilter());
         sitemesh.addMappingForUrlPatterns(dispatcherTypes, true, "*.jsp");

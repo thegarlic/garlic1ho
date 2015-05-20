@@ -9,9 +9,11 @@ import org.springframework.data.jpa.repository.Query;
 import com.example.domain.BoardArticle;
 
 public interface BoardArticleRepository extends JpaRepository<BoardArticle, Long>{
-	public Page<BoardArticle> findByBoardName(Pageable pageable, String boardName);
+
 	
 	@Modifying(clearAutomatically=true)
 	@Query("update BoardArticle t set t.num_read = t.num_read + 1 where t.id = ?1")
     public int updateNumRead(Long id);
+
+    public Page<BoardArticle> findByBoardName(Pageable pageable, String boardName);
 }

@@ -49,7 +49,8 @@ public class BoardArticleRepositoryTest {
 	public void setup() {
 		repository.deleteAll();
 		assertEquals(repository.count(), 0);
-		BoardArticle article = new BoardArticle(HELLOWORLD);
+
+        BoardArticle article = new BoardArticle(HELLOWORLD);
 		repository.save(article);
 		assertEquals(repository.count(), 1);
 	}

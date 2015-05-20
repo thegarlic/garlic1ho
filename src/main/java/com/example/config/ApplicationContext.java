@@ -14,6 +14,8 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 import com.example.aop.LucyAspect4BoardArticle;
+import org.springframework.orm.hibernate4.support.OpenSessionInViewFilter;
+import org.springframework.orm.hibernate4.support.OpenSessionInViewInterceptor;
 
 @Configuration
 @Import({ SpringMVCContext.class, PersistenceContext.class, SecurityContext.class, SocialContext.class })
@@ -37,6 +39,8 @@ public class ApplicationContext {
 	public PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
+
+
 
 	// LUCY AOP
 	@Bean

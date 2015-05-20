@@ -83,6 +83,7 @@ input {
 	font-weight: 400;
 	padding: 10px;
 	padding-left: 15px;
+    text-align: center;
 }
 
 #table_board tr td:nth-child(2), #table_board tfoot tr td {
@@ -183,7 +184,7 @@ input {
 #table_board.reply {
 	background-color: white;
 	width: 100%;
-	/* border : 1px solid #EFE8E2; */
+	 border : 1px solid #EFE8E2; 
 	margin-bottom: 20px;
 }
 
@@ -204,7 +205,7 @@ input {
 
 #table_board.reply th {
 	background-color: #efe8e2;
-	border-top: 4px solid #ffffff /* #ebc85e */;
+	border-top: 4px solid #ebc85e /*#ffffff  #ebc85e */;
 	color: #8e8071;
 
     padding: 0px 30px 30px;
@@ -244,6 +245,7 @@ input {
 	margin-bottom: 10px;
 	font-size: 20px;
 	border: 1px solid gray;
+    width: 60%;
 }
 
 #table_board.reply input[type=button] {
@@ -256,7 +258,7 @@ input {
 	width: 100px;
 	height: 25px;
 	margin : 3px;
-	font-size: 1em;
+	font-size: 0.7em;
 	font-family: 'Hanna', sans-serif;
 	color: black;
 }
